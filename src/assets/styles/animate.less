@@ -1,0 +1,36 @@
+// m-down
+@h: 87px;
+.m-down-enter-active,
+.m-down-leave-active {
+  animation-duration: 0.3s;
+  overflow: hidden;
+}
+.m-down-enter-active {
+  animation-name: fold-in;
+  animation-timing-function: ease;
+}
+.m-down-leave-active {
+  animation-name: fold-out;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes fold-in {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  100% {
+    max-height: @h;
+    opacity: 1;
+  }
+}
+@keyframes fold-out {
+  0% {
+    max-height: @h;
+    opacity: 1;
+  }
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}

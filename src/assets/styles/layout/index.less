@@ -1,0 +1,31 @@
+@import url('./header.less');
+@import url('./menulist.less');
+#layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.ml-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background-color: @grey2;
+  .handle-left {
+    width: 200px;
+    background-color: #fff;
+    box-shadow: 1px 0 6px rgba(0, 0, 0, 0.12);
+  }
+  .handle-right {
+    flex: 1;
+    margin: 1rem;
+    background-color: #fff;
+    overflow-y: auto;
+    .ant-breadcrumb {
+      padding: 1rem;
+      padding-bottom: 0;
+    }
+    .view_body {
+      padding: 1rem;
+    }
+  }
+}
