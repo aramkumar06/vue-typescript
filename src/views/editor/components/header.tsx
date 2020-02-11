@@ -1,7 +1,8 @@
 import { Vue, Component } from 'vue-property-decorator';
-import { Getter, Mutation } from 'vuex-class';
+import { Getter, Mutation, namespace } from 'vuex-class';
 import { EDITMODEL } from '@/store/types';
 
+const editOpt = namespace('editOpt');
 interface radio {
   name: string;
   icon: string;
@@ -14,9 +15,9 @@ interface StateData {
 
 @Component
 export default class Headercanvas extends Vue {
-  @Getter private EDITMODEL?: EDITMODEL;
+  @editOpt.Getter private EDITMODEL?: EDITMODEL;
 
-  @Mutation private EDIT_MODEL: any;
+  @editOpt.Mutation private EDIT_MODEL: any;
 
   private get GETEDITMODEL() {
     return this.EDITMODEL;

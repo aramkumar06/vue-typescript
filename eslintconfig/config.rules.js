@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-01-09 11:08:51
  * @LastEditors  : bhabgs
- * @LastEditTime : 2020-01-16 14:20:27
+ * @LastEditTime : 2020-02-10 13:38:37
  */
 exports.rules = {
   'prettier/prettier': 'error',
@@ -19,4 +19,6 @@ exports.rules = {
   'no-restricted-syntax': 0,
   'guard-for-in': 0,
   'no-param-reassign': 0,
+  'no-shadow': 0,
+  'max-classes-per-file': 0, // 允许一个文件下存在两个类
 };

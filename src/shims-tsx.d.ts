@@ -1,3 +1,11 @@
+/*
+ * @abstract: JianJie
+ * @version: 0.0.1
+ * @Author: bhabgs
+ * @Date: 2020-01-09 10:00:43
+ * @LastEditors: bhabgs
+ * @LastEditTime: 2020-02-03 11:38:09
+ */
 import Vue, { VNode } from 'vue';
 
 declare global {

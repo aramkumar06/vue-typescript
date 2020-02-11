@@ -1,10 +1,12 @@
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
+import { Getter, namespace } from 'vuex-class';
 import { EDITMODEL } from '@/store/types';
+
+const editOpt = namespace('editOpt');
 
 @Component
 export default class rightOpt extends Vue {
-  @Getter private EDITMODEL?: EDITMODEL;
+  @editOpt.Getter private EDITMODEL?: EDITMODEL;
 
   private get GETEDITMODEL() {
     return this.EDITMODEL;

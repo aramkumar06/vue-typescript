@@ -7,7 +7,6 @@ export default class MenuList extends Vue {
   private change(e: any): void {
     this.current = e.key;
     this.$nextTick(() => {
-      console.log(this.current);
       this.$router.push(this.current);
     });
   }

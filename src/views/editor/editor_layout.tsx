@@ -1,13 +1,13 @@
 import { Vue, Component } from 'vue-property-decorator';
 import header from './components/header';
-import Sider from './components/sider';
+import * as leftOpt from './components/left_opt';
 import RightOpt from './components/right_opt';
-import Canvas from './components/canvas';
+import Canvas from './canvas';
 
 @Component({
   components: {
     cHeader: header,
-    cSider: Sider,
+    cSider: leftOpt.Sider,
     cCanvas: Canvas,
     RightOpt,
   },

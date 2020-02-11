@@ -1,85 +1,111 @@
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
-import DeawerGroup from './drawer_group';
+import { Getter, namespace } from 'vuex-class';
 import { EDITMODEL } from '@/store/types';
 
+import componentList from './components_list';
+import componenTree from './component_tree';
+import globalArgs from './arguments';
+import canvasSetting from './canvas_setting';
+
+const editOpt = namespace('editOpt');
+
 interface StateData {
-  radioDefVal: string;
-  redioVal: string;
-  topB: any;
-  bottomB: any;
-  siderEditWidth: string;
-  siderWidthType: string;
+  monacoInstance: any; // 代码编辑器实例
+  radioDefVal: string; // 设置默认选中的按钮
+  redioVal: string; // 双向绑定的按钮选中组
+  topB: any; // 上半部分的按钮
+  bottomB: any; // 下半部分的按钮
+  siderEditWidth: string; // 设置侧边栏宽度
+  siderWidthType: string; // 侧边栏展示状态
 }
 @Component({
-  components: {
-    DeawerGroup,
-  },
+  components: { componentList, componenTree, globalArgs, canvasSetting },
 })
 export default class EditSider extends Vue {
   private State: StateData = {
+    monacoInstance: null,
     radioDefVal: 'null',
     siderWidthType: '',
-    redioVal: 'a',
+    redioVal: 'componentList',
     siderEditWidth: '280px',
     bottomB: {
-      c: {
-        value: 'c',
+      globalArgs: {
+        value: 'globalArgs',
         tipName: '全局参数设置',
         icon: 'tool',
       },
-      d: {
-        value: 'd',
-        tipName: '组件树',
+      canvasSetting: {
+        value: 'canvasSetting',
+        tipName: 'canvas 画布设置',
+        icon: 'deployment-unit',
+      },
+      f: {
+        value: 'f',
+        tipName: '应用设置',
         icon: 'deployment-unit',
       },
     },
     topB: {
-      a: {
-        value: 'a',
+      componenTree: {
+        value: 'componenTree',
         tipName: '组件树',
         icon: 'deployment-unit',
       },
-      b: {
-        value: 'b',
+      componentList: {
+        value: 'componentList',
         tipName: '组件',
         icon: 'calculator',
       },
     },
   };
 
-  @Getter private EDITMODEL?: EDITMODEL;
+  // 马良模式 编辑 还是预览
+  @editOpt.State((state) => state.EDITMODEL) private EDITMODEL?: EDITMODEL;
 
   private get GETEDITMODEL() {
     return this.EDITMODEL;
   }
 
+  @Getter private REDIOVAL?: string;
+
+  private get GETREDIOVAL() {
+    return this.REDIOVAL;
+  }
+
+  // 检查是否是预览模式 为预览与编辑模式设置不同场景
   @Watch('GETEDITMODEL')
   private changeGETEDITMODEL() {
     if (this.GETEDITMODEL === 'preview') {
-      this.collapsed = false;
+      this.MUT_COLLAPSED(false);
       setTimeout(() => {
         this.setSiderEditWidth(this.GETEDITMODEL);
-        this.collapsed = true;
+        this.MUT_COLLAPSED(true);
       }, 400);
     } else {
-      this.collapsed = false;
+      this.MUT_COLLAPSED(false);
       this.setSiderEditWidth(this.State.siderWidthType);
     }
   }
 
-  private collapsed: boolean = false;
+  @editOpt.State((state) => state.collapsed) private SCollapsed?: boolean;
+
+  get collapsed() {
+    return this.SCollapsed;
+  }
+
+  @editOpt.Mutation private MUT_COLLAPSED: any;
 
   // 设置是否弹出 侧边工具
   private toggleCollapsed() {
-    this.collapsed = !this.collapsed;
+    this.MUT_COLLAPSED(!this.collapsed);
   }
 
+  // 设置button 选种样式
   private changeButtonGroup(type: string, e: any) {
     this.State.redioVal = e.target.value;
     this.State.siderWidthType = type;
     if (!this.collapsed) {
-      this.collapsed = true;
+      this.MUT_COLLAPSED(true);
     }
     this.setSiderEditWidth(type);
   }
@@ -121,6 +147,33 @@ export default class EditSider extends Vue {
     return element;
   }
 
+  private onChange(value: string) {
+    console.log(value);
+  }
+
+  // 渲染工具自建
+  private get renderOptComponent(): JSX.Element {
+    let com: JSX.Element = <componentList />;
+    console.log(this.State.redioVal);
+    switch (this.State.redioVal) {
+      case 'componentList':
+        com = <componentList />;
+        break;
+      case 'componenTree':
+        com = <componenTree />;
+        break;
+      case 'globalArgs':
+        com = <globalArgs />;
+        break;
+      case 'canvasSetting':
+        com = <canvasSetting />;
+        break;
+      default:
+        com = <div>{this.State.redioVal}</div>;
+    }
+    return com;
+  }
+
   private render() {
     const {
       collapsed,
@@ -128,6 +181,8 @@ export default class EditSider extends Vue {
       State,
       changeButtonGroup,
       renderBtns,
+      onChange,
+      renderOptComponent,
     } = this;
     return (
       <div
@@ -160,7 +215,7 @@ export default class EditSider extends Vue {
             </a-radio-group>
           </div>
         </div>
-        <div class='sider_edit'>{State.redioVal}</div>
+        <div class='sider_edit'>{renderOptComponent}</div>
       </div>
     );
   }
