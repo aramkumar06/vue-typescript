@@ -6,11 +6,7 @@
  * @LastEditors  : bhabgs
  * @LastEditTime : 2020-01-09 11:15:41
  */
-const {
-  vue,
-  ts,
-  rules,
-} = require('./eslintconfig');
+const { vue, ts, rules } = require('./eslintconfig');
 
 module.exports = {
   env: {
@@ -18,10 +14,7 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: [
-    'airbnb-base',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['airbnb-base', 'plugin:prettier/recommended'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
