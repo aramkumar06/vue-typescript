@@ -1,4 +1,4 @@
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Ref, Watch } from 'vue-property-decorator';
 import AlertCard from '@/views/editor/components/alert_card';
 import util from '@/utils';
 import edit from '../code_edit';
@@ -40,11 +40,63 @@ export default class globalArgs extends Vue {
     },
   };
 
+  @Watch('state.form', { deep: true })
+  private watchForm() {
+    // 后续优化 减少计算
+    this.jsonToCode('json');
+  }
+
+  private jsonToCode(type: 'json' | 'code') {
+    if (type === 'code') {
+      // string to json
+      const code: any[] = this.edit
+        .getvalue()
+        .replace('export default ', '')
+        .replace(/\n/g, '')
+        .replace(/ /g, '')
+        .replace(/{|}/g, '')
+        .replace(/""/g, '"')
+        .split(',');
+      const data: Form = this.state.form;
+      code.forEach((element) => {
+        const li: any[] = element.split(':');
+        if (li.length > 0) {
+          const key = li[0].replace(/"/g, '') || '';
+          let val = li[1] || '';
+          if (Number(val)) {
+            val = Number(val);
+          } else {
+            val = val.replace(/"/g, '').replace(/'/g, '');
+          }
+
+          if (this.state.form[key]) {
+            data[key] = val;
+          }
+        }
+      });
+      console.log(data);
+      this.state.form = data;
+    } else {
+      // json to string code
+
+      let code: any = JSON.stringify(this.state.form)
+        .replace(/{|}/g, '\n')
+        .split('\n');
+      const codeData: any | [] = code[1]
+        .split(',')
+        .join(',\n')
+        .replace(' ', '');
+      code = `export default {\n ${codeData} \n}`;
+      this.state.editVal = code;
+    }
+  }
+
   private created() {}
 
   private changeCodeEdit() {
     if (this.state.CodeEditType === 'code') {
       this.state.CodeEditType = 'view';
+      this.jsonToCode('code');
       return;
     }
     this.state.CodeEditType = 'code';
@@ -53,6 +105,8 @@ export default class globalArgs extends Vue {
   private handleSubmit() {
     console.log('save');
   }
+
+  @Ref() readonly edit!: any;
 
   private get renderViewBody(): JSX.Element {
     const { state } = this;
@@ -134,7 +188,12 @@ export default class globalArgs extends Vue {
       this.state.editVal = util.editDefaultVal.canvasSetting;
     }
     return this.state.CodeEditType === 'code' ? (
-      <edit value={this.state.editVal} slot='body' style='height:100%;' />
+      <edit
+        ref='edit'
+        value={this.state.editVal}
+        slot='body'
+        style='height:100%;'
+      />
     ) : (
       this.renderViewBody
     );
