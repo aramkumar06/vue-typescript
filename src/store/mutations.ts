@@ -4,14 +4,10 @@
  * @Author: bhabgs
  * @Date: 2020-01-16 12:16:20
  * @LastEditors  : bhabgs
- * @LastEditTime : 2020-01-19 13:43:23
+ * @LastEditTime : 2020-02-12 11:39:08
  */
 import { MutationTree } from 'vuex';
-import { State, EDITMODEL } from './types';
+import { State } from './types';
 
-const mutations: MutationTree<State> = {
-  EDIT_MODEL(state: State, model: EDITMODEL) {
-    state.EDITMODEL = model;
-  },
-};
+const mutations: MutationTree<State> = {};
 export default mutations;

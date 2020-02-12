@@ -10,7 +10,4 @@ export type EDITMODEL = 'edit' | 'preview';
 export interface EDITSIDER {
   REDIOVAL: string;
 }
-export interface State {
-  EDITMODEL: EDITMODEL;
-  EDITSIDER: EDITSIDER;
-}
+export interface State {}

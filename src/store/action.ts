@@ -4,15 +4,11 @@
  * @Author: bhabgs
  * @Date: 2020-01-16 12:16:07
  * @LastEditors  : bhabgs
- * @LastEditTime : 2020-01-16 14:24:49
+ * @LastEditTime : 2020-02-12 11:38:50
  */
 import { ActionTree } from 'vuex';
-import { State, EDITMODEL } from './types';
+import { State } from './types';
 
-const actions: ActionTree<State, any> = {
-  SET_EDIT_MODEL({ commit, state }, model: EDITMODEL) {
-    commit('EDIT_MODEL', model);
-  },
-};
+const actions: ActionTree<State, any> = {};
 
 export default actions;

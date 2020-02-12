@@ -4,15 +4,12 @@
  * @Author: bhabgs
  * @Date: 2020-01-16 12:16:38
  * @LastEditors  : bhabgs
- * @LastEditTime : 2020-02-06 16:18:51
+ * @LastEditTime : 2020-02-12 11:39:00
  */
 
 import { GetterTree } from 'vuex';
 import { State } from './types';
 
-const getters: GetterTree<State, any> = {
-  EDITMODEL: (state: State) => state.EDITMODEL,
-  REDIOVAL: (state: State) => state.EDITSIDER.REDIOVAL,
-};
+const getters: GetterTree<State, any> = {};
 
 export default getters;
