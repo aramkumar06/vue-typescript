@@ -38,9 +38,7 @@ export default class AlertCard extends Vue<StateData> {
   };
 
   @Emit('save')
-  private save(i: any) {
-    console.log(i);
-  }
+  private save(i: any) {}
 
   private getComponents() {
     if (this.State.spinning) {
@@ -48,8 +46,6 @@ export default class AlertCard extends Vue<StateData> {
     }
     this.State.spinning = true;
     // to do
-    console.log(this.type);
-
     setTimeout(() => {
       this.State.spinning = false;
     }, 1200);
@@ -61,8 +57,6 @@ export default class AlertCard extends Vue<StateData> {
     if (item === 'save') {
       this.save(item);
     }
-    // befor close to do
-    this.MUT_COLLAPSED(false);
   }
 
   private get renderTitle(): JSX.Element {

@@ -1,22 +1,16 @@
 import { Component, Vue, Ref, Watch } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import AlertCard from '@/views/editor/components/alert_card';
 import util from '@/utils';
+import { CANVAS_SETTING, viewport } from '@/store/modules/editOpt/type';
 import edit from '../code_edit';
 
-type viewport = 'pc' | 'iphone7' | 'iphonex';
+const editOpt = namespace('editOpt');
 
-interface Form {
-  backgroundColor: string;
-  viewport: viewport;
-  scale: number;
-  width: string;
-  height: string;
-}
-
-interface State {
+interface StateData {
   CodeEditType: 'code' | 'view';
   editVal: string | string[];
-  form: Form;
+  form: CANVAS_SETTING;
   viewports: viewport[];
 }
 
@@ -27,7 +21,7 @@ interface State {
   },
 })
 export default class globalArgs extends Vue {
-  public state: State = {
+  public state: StateData = {
     CodeEditType: 'view',
     editVal: '',
     viewports: ['iphone7', 'iphonex', 'pc'],
@@ -46,6 +40,13 @@ export default class globalArgs extends Vue {
     this.jsonToCode('json');
   }
 
+  @editOpt.State((state) => state.CANVAS_SETTING)
+  private canvasSetting!: CANVAS_SETTING;
+
+  @editOpt.Mutation private SET_CANVAS_SETTING!: Function;
+
+  @editOpt.Mutation private MUT_COLLAPSED!: Function;
+
   private jsonToCode(type: 'json' | 'code') {
     if (type === 'code') {
       // string to json
@@ -57,7 +58,7 @@ export default class globalArgs extends Vue {
         .replace(/{|}/g, '')
         .replace(/""/g, '"')
         .split(',');
-      const data: Form = this.state.form;
+      const data: CANVAS_SETTING = this.state.form;
       code.forEach((element) => {
         const li: any[] = element.split(':');
         if (li.length > 0) {
@@ -74,7 +75,6 @@ export default class globalArgs extends Vue {
           }
         }
       });
-      console.log(data);
       this.state.form = data;
     } else {
       // json to string code
@@ -91,7 +91,9 @@ export default class globalArgs extends Vue {
     }
   }
 
-  private created() {}
+  private created() {
+    this.state.form = { ...this.canvasSetting };
+  }
 
   private changeCodeEdit() {
     if (this.state.CodeEditType === 'code') {
@@ -154,7 +156,11 @@ export default class globalArgs extends Vue {
           <span class='b_name'>画布尺寸</span>
           <div class='b_context'>
             <a-input-group compact style='display: flex;'>
-              <a-input style=' text-align: center' placeholder='Minimum'>
+              <a-input
+                v-model={state.form.width}
+                style=' text-align: center'
+                placeholder='Minimum'
+              >
                 <span slot='addonAfter' style='border-radius: 0;'>
                   W
                 </span>
@@ -165,6 +171,7 @@ export default class globalArgs extends Vue {
                 disabled
               />
               <a-input
+                v-model={state.form.height}
                 style=' text-align: center; border-left: 0'
                 placeholder='Maximum'
               >
@@ -180,7 +187,15 @@ export default class globalArgs extends Vue {
   }
 
   private onSave() {
-    console.log(123);
+    if (this.state.CodeEditType === 'code') {
+      this.state.CodeEditType = 'view';
+      this.jsonToCode('code');
+    }
+    this.SET_CANVAS_SETTING(this.state.form);
+    // 存放如 缓存
+    setTimeout(() => {
+      this.MUT_COLLAPSED(false);
+    }, 1000);
   }
 
   private get renderBody(): JSX.Element {

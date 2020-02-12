@@ -1,5 +1,5 @@
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { Getter, namespace } from 'vuex-class';
+import { namespace } from 'vuex-class';
 import { EDITMODEL } from '@/store/types';
 
 import componentList from './components_list';
@@ -64,12 +64,6 @@ export default class EditSider extends Vue {
 
   private get GETEDITMODEL() {
     return this.EDITMODEL;
-  }
-
-  @Getter private REDIOVAL?: string;
-
-  private get GETREDIOVAL() {
-    return this.REDIOVAL;
   }
 
   // 检查是否是预览模式 为预览与编辑模式设置不同场景
