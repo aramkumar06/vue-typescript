@@ -1,5 +1,6 @@
 @import './components/alert_card.less';
 @import './components/canvas_setting.less';
+@import './components/left_opt/components_list.less';
 .animate {
   transition: width 0.2s ease-in-out;
 }
@@ -13,6 +14,7 @@
     display: flex;
     // background-image: url(~@/assets/images/edit.png);
     background-size: 100% 100%;
+    overflow: hidden;
   }
 }
 .editor-header {
@@ -48,6 +50,7 @@
   background-color: #fff;
   .sider_edit {
     flex: 1;
+    overflow: hidden;
   }
   &.sider-unfold {
     width: @mw + 1;
