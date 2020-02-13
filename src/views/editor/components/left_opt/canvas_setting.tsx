@@ -191,11 +191,10 @@ export default class globalArgs extends Vue {
       this.state.CodeEditType = 'view';
       this.jsonToCode('code');
     }
-    this.SET_CANVAS_SETTING(this.state.form);
+
     // 存放如 缓存
-    setTimeout(() => {
-      this.MUT_COLLAPSED(false);
-    }, 1000);
+    this.SET_CANVAS_SETTING(this.state.form);
+    // this.MUT_COLLAPSED(false);
   }
 
   private get renderBody(): JSX.Element {

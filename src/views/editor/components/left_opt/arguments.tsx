@@ -28,7 +28,7 @@ export default class globalArgs extends Vue {
     const { edit, SETGLOBALARGS, MUT_COLLAPSED } = this;
     const val = edit.getvalue();
     SETGLOBALARGS(val);
-    MUT_COLLAPSED(false);
+    // MUT_COLLAPSED(false);
   }
 
   private render() {
@@ -47,7 +47,12 @@ export default class globalArgs extends Vue {
     };
     return (
       <AlertCard {...alertCardComponentsTree}>
-        <edit ref='edit' slot='body' style='height:100%;' />
+        <edit
+          ref='edit'
+          value={this.getGlobalArgs}
+          slot='body'
+          style='height:100%;'
+        />
       </AlertCard>
     );
   }
