@@ -10,5 +10,5 @@ export default [
     style: {},
     height: 200,
     children: [],
-  }
+  },
 ];

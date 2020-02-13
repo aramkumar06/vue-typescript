@@ -8,7 +8,9 @@ import componentData from './baseData/componentData';
 })
 export default class ComponentsList extends Vue {
   private selectDefaultValue: string = 'layout';
+
   private componentListLoopBody: any[] = [];
+
   private componentType: any[] = [
     {
       code: 'layout',
@@ -23,9 +25,11 @@ export default class ComponentsList extends Vue {
       title: '组件群',
     }, */
   ];
+
   private mounted() {
     this.changeSelect('layout');
   }
+
   private changeSelect(value: string) {
     switch (value) {
       case 'layout':
@@ -37,8 +41,11 @@ export default class ComponentsList extends Vue {
       case 'components':
         this.componentListLoopBody = [];
         break;
+      default:
+        this.componentListLoopBody = [];
     }
   }
+
   private render() {
     const alertCardComponents = {
       props: {
@@ -58,7 +65,9 @@ export default class ComponentsList extends Vue {
           >
             {this.componentType.map((item) => {
               return (
-                <a-select-option value={item.code}>{item.title}</a-select-option>
+                <a-select-option value={item.code}>
+                  {item.title}
+                </a-select-option>
               );
             })}
           </a-select>
@@ -71,8 +80,7 @@ export default class ComponentsList extends Vue {
                     class='component-pic'
                     draggable='true'
                     style={{
-                      backgroundImage:
-                        'url(' + imgUrl + '?text=' + item.name + ')',
+                      backgroundImage: `url(${imgUrl}?text=${item.name})`,
                       backgroundRepeat: 'no-repeat',
                       backgroundPosition: 'center',
                     }}
