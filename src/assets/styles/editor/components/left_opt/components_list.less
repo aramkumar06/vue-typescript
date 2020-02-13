@@ -1,0 +1,30 @@
+.component-list-body {
+  height: 100%;
+  padding: 5px 10px 0;
+  .list-component {
+    height: calc(100% - 45px);
+    overflow: auto;
+    .component {
+      height: 165px;
+      margin-top: 10px;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      .component-title {
+        width: 100%;
+        margin-bottom: 5px;
+      }
+      .component-pic {
+        width: 100%;
+        flex: 1;
+        border: 1px dashed #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .image{
+          user-select: none;
+        }
+      }
+    }
+  }
+}
