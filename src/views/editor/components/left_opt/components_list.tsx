@@ -1,7 +1,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import AlertCard from '@/views/editor/components/alert_card';
-import layoutData from './baseData/layoutData';
-import componentData from './baseData/componentData';
+import layoutData from '@/utils/baseData/layoutData';
+import componentData from '@/utils/baseData/componentData';
 
 @Component({
   components: { AlertCard },
@@ -46,6 +46,14 @@ export default class ComponentsList extends Vue {
     }
   }
 
+  private dragStartFn(e: any, obj: any) {
+    const componentInfo =
+      Object.prototype.toString.call(obj) === '[object Object]'
+        ? JSON.stringify(obj)
+        : obj;
+    e.dataTransfer.setData('componentInfo', componentInfo);
+  }
+
   private render() {
     const alertCardComponents = {
       props: {
@@ -79,6 +87,9 @@ export default class ComponentsList extends Vue {
                   <div
                     class='component-pic'
                     draggable='true'
+                    ondragstart={(e: Event) => {
+                      this.dragStartFn(e, item);
+                    }}
                     style={{
                       backgroundImage: `url(${imgUrl}?text=${item.name})`,
                       backgroundRepeat: 'no-repeat',
