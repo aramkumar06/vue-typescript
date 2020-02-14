@@ -60,24 +60,7 @@ export default class EditCanvas extends Vue {
         setting：{JSON.stringify(this.getCanvasSetting)} <br />
         getGlobalArgs： {`\n${this.getGlobalArgs}`}
         {this.getPageContentInfo.children.map((item: any) => {
-<<<<<<< HEAD
           return <layout opt={item} />;
-=======
-          return (
-            <layout
-              class='layout'
-              ondragenter={(e: Event) => {
-                this.dragEnterFn(e, 'layout');
-              }}
-              ondragover={(e: Event) => {
-                this.dragOverFn(e, 'layout');
-              }}
-              ondrop={(e: Event) => {
-                this.dropFn(e, 'layout');
-              }}
-            />
-          );
->>>>>>> 0b3c2a3ff925f13b6926e5ebc9f358baead93c42
         })}
       </div>
     );
