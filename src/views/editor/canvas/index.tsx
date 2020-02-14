@@ -88,7 +88,7 @@ export default class EditCanvas extends Vue {
       >
         setting：{JSON.stringify(this.getCanvasSetting)} <br />
         getGlobalArgs： {`\n${this.getGlobalArgs}`}
-        {this.getPageContentInfo.layouts.map((item: any) => {
+        {this.getPageContentInfo.children.map((item: any) => {
           return (
             <layout
               class='layout'
