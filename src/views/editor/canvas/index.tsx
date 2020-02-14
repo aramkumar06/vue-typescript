@@ -26,83 +26,41 @@ export default class EditCanvas extends Vue {
     return this.getPageContent;
   }
 
-  private dragEnterFn(e: Event, type: String) {
-    switch (type) {
-      case 'page':
-        break;
-      case 'layout':
-        break;
-      default:
-        break;
-    }
+  private dragEnterFn(e: Event) {
+    //
   }
 
-  private dragOverFn(e: Event, type: String) {
+  private dragOverFn(e: Event) {
     e.preventDefault();
-    switch (type) {
-      case 'page':
-        break;
-      case 'layout':
-        e.stopPropagation();
-        break;
-      default:
-        break;
-    }
   }
 
-  private dropFn(e: any, type: String) {
+  private dropFn(e: any) {
     e.preventDefault();
     const data = JSON.parse(e.dataTransfer.getData('componentInfo'));
-    switch (type) {
-      case 'page':
-        this.pageContentAddLayout(data);
-        break;
-      case 'layout':
-        e.stopPropagation();
-        this.layoutChildrenAddComponent(data);
-        break;
-      default:
-        break;
-    }
+    data.id = `Layout${Date.parse(new Date().toString()) / 1000}`;
+    this.pageContentAddLayout(data);
   }
 
   private pageContentAddLayout(obj: any) {
+    if (obj.type !== 'layout') {
+      this.$message.error('请添加布局组件');
+      return;
+    }
     this.PAGE_CONTENT_ADD_LAYOUT(obj);
   }
-
-  private layoutChildrenAddComponent(obj: any) {}
 
   private render() {
     return (
       <div
         id='edit_canvas'
-        ondragenter={(e: Event) => {
-          this.dragEnterFn(e, 'page');
-        }}
-        ondragover={(e: Event) => {
-          this.dragOverFn(e, 'page');
-        }}
-        ondrop={(e: Event) => {
-          this.dropFn(e, 'page');
-        }}
+        ondragenter={this.dragEnterFn}
+        ondragover={this.dragOverFn}
+        ondrop={this.dropFn}
       >
         setting：{JSON.stringify(this.getCanvasSetting)} <br />
         getGlobalArgs： {`\n${this.getGlobalArgs}`}
-        {this.getPageContentInfo.layouts.map((item: any) => {
-          return (
-            <layout
-              class='layout'
-              ondragenter={(e: Event) => {
-                this.dragEnterFn(e, 'layout');
-              }}
-              ondragover={(e: Event) => {
-                this.dragOverFn(e, 'layout');
-              }}
-              ondrop={(e: Event) => {
-                this.dropFn(e, 'layout');
-              }}
-            />
-          );
+        {this.getPageContentInfo.children.map((item: any) => {
+          return <layout opt={item} />;
         })}
       </div>
     );

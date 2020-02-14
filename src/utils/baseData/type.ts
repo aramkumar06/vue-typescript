@@ -3,8 +3,8 @@
  * @version: 0.0.1
  * @Author: bhabgs
  * @Date: 2020-02-14 09:38:59
- * @LastEditors  : bhabgs
- * @LastEditTime : 2020-02-14 10:33:59
+ * @LastEditors  : wpp
+ * @LastEditTime : 2020-02-14 15:32:25
  */
 interface style {} // 选择 typecss
 
@@ -19,11 +19,13 @@ type Prop = {};
 export interface layout {
   id: string;
   name: string;
+  type: string;
   style: style;
   children: children;
 }
 
 export interface component {
+  id?: string;
   name: string;
   type: string;
   style: style;

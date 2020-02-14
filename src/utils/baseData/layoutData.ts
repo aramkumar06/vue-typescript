@@ -2,14 +2,19 @@
  * @Autor: wpp
  * @Date: 2020-02-12 14:11:04
  * @LastEditors  : wpp
- * @LastEditTime : 2020-02-13 11:49:34
+ * @LastEditTime : 2020-02-14 11:55:34
  */
-export default [
+
+import { layout } from './type';
+
+const layoutList: layout[] = [
   {
+    id: '',
     name: 'row-layout',
     type: 'layout',
     style: {},
-    height: 200,
     children: [],
   },
 ];
+
+export default layoutList;
