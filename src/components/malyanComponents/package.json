@@ -1,0 +1,21 @@
+{
+  "name": "malyancomponents",
+  "version": "0.0.1",
+  "description": "马良组件",
+  "main": "index.ts",
+  "scripts": {
+    "test": "build"
+  },
+  "keywords": [
+    "bhabgs",
+    "malyan",
+    "vue",
+    "tsx"
+  ],
+  "author": "bhabgs",
+  "license": "ISC",
+  "dependencies": {
+    "vue-property-decorator": "^8.4.0"
+  },
+  "devDependencies": {}
+}
