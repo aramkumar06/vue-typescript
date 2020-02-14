@@ -90,7 +90,7 @@ export default class EditCanvas extends Vue {
         getGlobalArgs： {`\n${this.getGlobalArgs}`}
         {this.getPageContentInfo.layouts.map((item: any) => {
           return (
-            <div
+            <layout
               class='layout'
               ondragenter={(e: Event) => {
                 this.dragEnterFn(e, 'layout');
@@ -101,7 +101,7 @@ export default class EditCanvas extends Vue {
               ondrop={(e: Event) => {
                 this.dropFn(e, 'layout');
               }}
-            ></div>
+            />
           );
         })}
       </div>
