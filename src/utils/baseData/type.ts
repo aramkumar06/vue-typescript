@@ -3,8 +3,8 @@
  * @version: 0.0.1
  * @Author: bhabgs
  * @Date: 2020-02-14 09:38:59
- * @LastEditors  : wpp
- * @LastEditTime : 2020-02-14 15:32:25
+ * @LastEditors  : bhabgs
+ * @LastEditTime : 2020-02-15 09:56:26
  */
 interface style {} // 选择 typecss
 
@@ -15,6 +15,8 @@ type Event = {};
 type Permissions = {};
 
 type Prop = {};
+
+type Type = 'layout' | 'component';
 
 export interface layout {
   id: string;
@@ -27,7 +29,7 @@ export interface layout {
 export interface component {
   id?: string;
   name: string;
-  type: string;
+  type: Type;
   style: style;
   permissions: Permissions;
   prop: Prop;
