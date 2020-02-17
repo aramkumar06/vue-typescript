@@ -1,12 +1,14 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { Getter, Mutation } from 'vuex-class';
+import { namespace, Getter, Mutation } from 'vuex-class';
 import { layout } from '@/utils/baseData/type';
+
+const editData = namespace('editData');
 
 @Component
 export default class Layout extends Vue {
-  @Getter private getPageContent!: any;
+  @editData.Getter private getPageContent!: any;
 
-  @Mutation private LAYOUT_CHILDREN_ADD_COMPONENT: any;
+  @editData.Mutation private LAYOUT_CHILDREN_ADD_COMPONENT: any;
 
   @Prop() private opt?: layout;
 
