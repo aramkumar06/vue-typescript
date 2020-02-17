@@ -8,12 +8,5 @@
  */
 import { State } from './types';
 
-const state: State = {
-  pageContent: {
-    name: '加药详情1',
-    id: 'addMedicineDetail1',
-    children: [],
-    event: [],
-  },
-};
+const state: State = {};
 export default state;
