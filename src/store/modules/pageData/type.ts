@@ -1,10 +1,10 @@
 /*
  * @Autor: wpp
  * @Date: 2020-02-17 14:14:20
- * @LastEditors: wpp
+ * @LastEditors: bhabgs
  * @LastEditTime: 2020-02-17 14:14:49
  */
-import { page } from '@/utils/baseData/type';
+import { page } from '../../pageType';
 export interface State {
   pageContent: page;
 }

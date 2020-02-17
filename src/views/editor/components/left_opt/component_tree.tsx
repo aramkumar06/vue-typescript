@@ -3,13 +3,13 @@ import { namespace, Getter, Mutation } from 'vuex-class';
 import AlertCard from '@/views/editor/components/alert_card';
 import { page, component } from '@/utils/baseData/type';
 
-const editData = namespace('editData');
+const pageData = namespace('pageData');
 
 @Component({
   components: { AlertCard },
 })
 export default class ComponentsTree extends Vue {
-  @editData.Getter private getPageContent!: any;
+  @pageData.Getter private getPageContent!: any;
 
   get getPageContentInfo(): any {
     // return this.getPageContent;

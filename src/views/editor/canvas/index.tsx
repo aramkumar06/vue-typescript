@@ -3,7 +3,7 @@ import { namespace, Getter, Mutation } from 'vuex-class';
 import { CANVAS_SETTING } from '@/store/modules/editOpt/type';
 
 const editOpt = namespace('editOpt');
-const editData = namespace('editData');
+const pageData = namespace('pageData');
 
 @Component
 export default class EditCanvas extends Vue {
@@ -11,9 +11,9 @@ export default class EditCanvas extends Vue {
 
   @editOpt.Getter private globalArgs!: string;
 
-  @editData.Getter private getPageContent!: any;
+  @pageData.Getter private getPageContent!: any;
 
-  @editData.Mutation private PAGE_CONTENT_ADD_LAYOUT: any;
+  @pageData.Mutation private PAGE_CONTENT_ADD_LAYOUT: any;
 
   get getGlobalArgs(): string {
     return this.globalArgs;
