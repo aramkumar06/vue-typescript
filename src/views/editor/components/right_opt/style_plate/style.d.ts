@@ -47,6 +47,12 @@ export interface layoutStyle {
   alignItems?: alignItems;
   flexWarp?: flexWarp;
 }
+
+export interface Background {
+  background: string;
+}
+
 export interface style {
   layoutStyle: layoutStyle;
+  Background: Background;
 }

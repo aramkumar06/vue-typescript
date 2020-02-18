@@ -1,9 +1,10 @@
 import { Vue, Component } from 'vue-property-decorator';
 
 import LayoutComp from './layout.comp';
+import BackgroundComp from './background.comp';
 
 @Component({
-  components: { LayoutComp },
+  components: { LayoutComp, BackgroundComp },
 })
 export default class StylePlate extends Vue {
   private activeKey: string = '2';
@@ -17,7 +18,7 @@ export default class StylePlate extends Vue {
             <LayoutComp />
           </a-collapse-panel>
           <a-collapse-panel header='背景' key='2'>
-            <p>text</p>
+            <BackgroundComp />
           </a-collapse-panel>
           <a-collapse-panel header='定位' key='3'>
             <p>text</p>

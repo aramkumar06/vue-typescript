@@ -17,6 +17,12 @@ export default class RadioGroupLabel extends Vue {
   private map!: Array<any>;
 
   @Prop({
+    type: String,
+    default: 'small',
+  })
+  private size!: string;
+
+  @Prop({
     default: 'Title',
     required: false,
     type: String,
@@ -65,13 +71,13 @@ export default class RadioGroupLabel extends Vue {
   }
 
   render() {
-    const { renderTip, state, title, $slots, onChange } = this;
+    const { renderTip, state, title, $slots, onChange, size } = this;
     return (
       <bhabgsLabel title={title}>
         {$slots.title ? <div slot='title'>{$slots.title}</div> : ''}
         <a-radio-group
           onChange={onChange}
-          size='small'
+          size={size}
           v-model={state.value}
           slot='control'
         >
