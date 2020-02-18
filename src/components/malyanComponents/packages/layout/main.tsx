@@ -1,59 +1,34 @@
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import { namespace } from 'vuex-class';
+import { Vue, Component, Prop, Emit } from 'vue-property-decorator';
 import { layout } from '@/utils/baseData/type';
 import util from '../../util';
 
-const pageData = namespace('pageData');
-
 @Component
 export default class Layout extends Vue {
-  @pageData.Getter private getPageContent!: any;
-
-  @pageData.Mutation private LAYOUT_CHILDREN_ADD_COMPONENT: any;
-
-  @Prop() private opt?: layout;
-
-  get getPageContentInfo(): any {
-    return this.getPageContent;
-  }
-
-  private dragEnterFn(e: Event) {
-    //
-  }
+  @Prop() private layoutId?: layout;
 
   private dragOverFn(e: Event) {
     e.preventDefault();
     e.stopPropagation();
   }
 
-  private dropFn(e: any) {
+  @Emit()
+  private dropfn(e: any) {
     e.preventDefault();
     e.stopPropagation();
     const data = JSON.parse(e.dataTransfer.getData('componentInfo'));
-    data.id = `Component${util.getId()}`;
-    this.layoutChildrenAddComponent(data);
-  }
-
-  private layoutChildrenAddComponent(obj: any) {
-    if (obj.type !== 'component') {
-      this.$message.error('请添加组件');
-      return;
+    if (data.type === 'component') {
+      data.id = `Component${util.getId()}`;
+    } else if (data.type === 'layout') {
+      data.id = `Layout${util.getId()}`;
     }
-    this.LAYOUT_CHILDREN_ADD_COMPONENT({
-      component: obj,
-      currentLayout: this.opt,
-    });
+    return { componentInfo: data, currentComponent: this.layoutId };
   }
 
   render() {
+    const slot = this.$slots.default;
     return (
-      <div
-        class='layout'
-        ondragenter={this.dragEnterFn}
-        ondragover={this.dragOverFn}
-        ondrop={this.dropFn}
-      >
-        <pre>{JSON.stringify(this.getPageContentInfo, null, '\t')}</pre>
+      <div class='layout' ondragover={this.dragOverFn} ondrop={this.dropfn}>
+        {slot}
       </div>
     );
   }
