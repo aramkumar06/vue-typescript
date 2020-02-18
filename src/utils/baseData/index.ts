@@ -3,15 +3,13 @@
  * @version: 0.0.1
  * @Author: bhabgs
  * @Date: 2020-02-14 09:38:48
- * @LastEditors  : bhabgs
- * @LastEditTime : 2020-02-14 10:13:51
+ * @LastEditors: wpp
+ * @LastEditTime: 2020-02-18 10:59:39
  */
-import { page } from './type';
+import pageData from './pageData';
+import layoutData from './layoutData';
+import componentData from './componentData';
 
-const page: page = {
-  name: '',
-  id: '',
-  event: {},
-  children: [],
-};
-export default page;
+const baseData: any = { pageData, layoutData, componentData };
+
+export default baseData;

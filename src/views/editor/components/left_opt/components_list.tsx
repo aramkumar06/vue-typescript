@@ -1,7 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator';
 import AlertCard from '@/views/editor/components/alert_card';
-import layoutData from '@/utils/baseData/layoutData';
-import componentData from '@/utils/baseData/componentData';
+import baseData from '@/utils';
 
 @Component({
   components: { AlertCard },
@@ -33,10 +32,10 @@ export default class ComponentsList extends Vue {
   private changeSelect(value: string) {
     switch (value) {
       case 'layout':
-        this.componentListLoopBody = layoutData;
+        this.componentListLoopBody = baseData.layoutData;
         break;
       case 'baseComponent':
-        this.componentListLoopBody = componentData;
+        this.componentListLoopBody = baseData.componentData;
         break;
       case 'components':
         this.componentListLoopBody = [];

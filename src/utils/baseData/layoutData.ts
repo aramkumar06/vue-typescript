@@ -7,7 +7,7 @@
 
 import { layout } from './type';
 
-const layoutList: layout[] = [
+const layoutData: layout[] = [
   {
     id: '',
     name: 'row-layout',
@@ -17,4 +17,4 @@ const layoutList: layout[] = [
   },
 ];
 
-export default layoutList;
+export default layoutData;
