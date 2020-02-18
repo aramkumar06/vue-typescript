@@ -6,7 +6,7 @@ import LayoutComp from './layout.comp';
   components: { LayoutComp },
 })
 export default class StylePlate extends Vue {
-  private activeKey: string = '1';
+  private activeKey: string = '2';
 
   render(): JSX.Element {
     return (
