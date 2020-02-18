@@ -1,6 +1,7 @@
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import { layout } from '@/utils/baseData/type';
+import util from '../../util';
 
 const pageData = namespace('pageData');
 
@@ -20,7 +21,7 @@ export default class Layout extends Vue {
     e.preventDefault();
     e.stopPropagation();
     const data = JSON.parse(e.dataTransfer.getData('componentInfo'));
-    data.id = `Component${Date.parse(new Date().toString()) / 1000}`;
+    data.id = `Component${util.getId()}`;
     this.layoutChildrenAddComponent(data);
   }
 

@@ -38,8 +38,8 @@ type flexWarp = 'nowrap' | 'wrap' | 'wrap-reverse';
 
 export interface layoutStyle {
   display?: string;
-  margin?: (string | number)[];
-  padding?: (string | number)[];
+  margin: (string | number)[];
+  padding: (string | number)[];
   width?: string;
   height?: string;
   flexDirection?: flexDirection;

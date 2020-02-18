@@ -25,8 +25,8 @@ export default class LayoutComp extends Vue {
   private state: StateData = {
     form: {
       display: 'inline',
-      margin: [0, 0, 0, 0],
-      padding: [0, 0, 0, 0],
+      margin: [0, 0, 20, 0],
+      padding: [0, 10, 0, 0],
       width: '0px',
       height: '0px',
       flexDirection: 'row',
@@ -207,7 +207,7 @@ export default class LayoutComp extends Vue {
                   maxlength='6'
                   height='100%'
                   autocomplete='off'
-                  value=''
+                  v-model={state.form.margin[0]}
                 />
               </span>
             </div>
@@ -218,7 +218,7 @@ export default class LayoutComp extends Vue {
                 maxlength='6'
                 height='100%'
                 autocomplete='off'
-                value=''
+                v-model={state.form.margin[3]}
               />
             </div>
 
@@ -229,7 +229,7 @@ export default class LayoutComp extends Vue {
                 maxlength='6'
                 height='100%'
                 autocomplete='off'
-                value=''
+                v-model={state.form.margin[2]}
               />
             </div>
 
@@ -240,37 +240,53 @@ export default class LayoutComp extends Vue {
                   maxlength='6'
                   height='100%'
                   autocomplete='off'
-                  value=''
+                  v-model={state.form.margin[1]}
                 />
               </span>
             </div>
 
             <div class='padding_top_div'>
-              <input type='text' placeholder='0' />
+              <input
+                type='text'
+                placeholder='0'
+                v-model={state.form.padding[0]}
+              />
             </div>
 
             <div class='padding_right_div'>
-              <input type='text' placeholder='0' />
+              <input
+                type='text'
+                placeholder='0'
+                v-model={state.form.padding[3]}
+              />
             </div>
 
             <div class='padding_bottom_div'>
               <span class='help_txt'>PADDING</span>
-              <input type='text' placeholder='0' />
+              <input
+                type='text'
+                placeholder='0'
+                v-model={state.form.padding[2]}
+              />
             </div>
 
             <div class='padding_left_div'>
-              <input type='text' placeholder='0' />
+              <input
+                type='text'
+                placeholder='0'
+                v-model={state.form.padding[1]}
+              />
             </div>
           </div>
         </bhabgsLabel>
 
         <bhabgsLabel title=''>
           <div class='width_height' slot='control'>
-            <a-input>
+            <a-input v-model={state.form.width}>
               <span slot='addonAfter'>宽</span>
             </a-input>
             &nbsp;
-            <a-input>
+            <a-input v-model={state.form.height}>
               <span slot='addonAfter'>高</span>
             </a-input>
           </div>
