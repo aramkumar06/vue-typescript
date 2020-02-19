@@ -18,15 +18,12 @@ export default class globalArgs extends Vue {
 
   @editOpt.Mutation private SETGLOBALARGS!: Function;
 
-  @editOpt.Getter private globalArgs!: string;
-
-  get getGlobalArgs(): string {
-    return this.globalArgs;
-  }
+  @editOpt.State((state) => state.globalArgs)
+  private getGlobalArgs!: string;
 
   private save() {
-    const { edit, SETGLOBALARGS, MUT_COLLAPSED } = this;
-    const val = edit.getvalue();
+    const { SETGLOBALARGS } = this;
+    const val = this.edit.getvalue();
     SETGLOBALARGS(val);
     // MUT_COLLAPSED(false);
   }

@@ -1,23 +1,20 @@
+<!--
+ * @abstract: JianJie
+ * @version: 0.0.1
+ * @Author: bhabgs
+ * @Date: 2020-01-09 10:00:46
+ * @LastEditors: bhabgs
+ * @LastEditTime: 2020-02-19 11:53:43
+ -->
+
 # malyan
 
-## Project setup
+## 送给所有前端开发者
 
-```
-yarn install
-```
+Node.js 更是把前端 JavaScript 的能力带到了服务器端，使得前端开发者可以方便的搞 Full Stack 或者 (BFF)Backends for Frontend。很多前端开发者也把自己的职业目标定义为了全栈工程师。显然这与主流软件开发的理念是违背的：让专业的人做专业的事。很多开发者也慢慢从“全栈工程师”变成了“全干工程师”——什么都会干，却什么都干不好。
 
-### Compiles and hot-reloads for development
+你作为前端开发者，还懂如何配置 nginx。但是你配的 nginx 真的是最优的吗？为什么不交给专业的人去做呢？
 
-```
-yarn serve
-```
+你作为前端开发者，还懂如何配置 mysql。但是你配的 mysql 真的是最优的吗？为什么不交给专业的人去做呢？
 
-### Compiles and minifies for production
-
-```
-yarn build
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+你作为前端开发者，真的懂并发、网络、扩容、容灾、监控、日志吗？为什么不交给专业的人去做呢？

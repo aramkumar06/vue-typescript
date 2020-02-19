@@ -13,5 +13,6 @@ const state: State = {
     children: [],
     event: [],
   },
+  activeKey: '',
 };
 export default state;

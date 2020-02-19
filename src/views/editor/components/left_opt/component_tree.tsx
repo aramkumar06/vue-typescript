@@ -1,6 +1,7 @@
 import { Vue, Component } from 'vue-property-decorator';
-import { namespace, Getter, Mutation } from 'vuex-class';
+import { namespace } from 'vuex-class';
 import AlertCard from '@/views/editor/components/alert_card';
+import { page } from '@/store/pageType';
 
 const pageData = namespace('pageData');
 
@@ -8,14 +9,19 @@ const pageData = namespace('pageData');
   components: { AlertCard },
 })
 export default class ComponentsTree extends Vue {
-  @pageData.Getter private getPageContent!: any;
+  @pageData.Getter private getPageContent!: page;
 
-  get getPageContentInfo(): any {
+  @pageData.State((state) => state.activeKey)
+  private activeKey!: string;
+
+  @pageData.Mutation private SET_ACTIVEKEY!: Function;
+
+  get getPageContentInfo(): page[] {
     return [this.getPageContent];
   }
 
-  private selectFn(name: any) {
-    console.log(name);
+  private selectFn(name: string[]) {
+    this.SET_ACTIVEKEY(name[0]);
   }
 
   private render() {
@@ -30,6 +36,7 @@ export default class ComponentsTree extends Vue {
     return (
       <AlertCard {...alertCardComponentsTree}>
         <div class='component-tree-body' slot='body'>
+          {this.activeKey}
           {this.getPageContentInfo.map((item: any) => {
             return (
               <a-tree
