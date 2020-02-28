@@ -1,7 +1,5 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { layoutStyle } from './style';
-import radioFroupLabel from '../../radioGroupLabel';
-import bhabgsLabel from '../../label';
 
 interface layout {
   title: string;
@@ -18,17 +16,15 @@ interface StateData {
   flexWarp: any[];
 }
 
-@Component({
-  components: { radioFroupLabel, bhabgsLabel },
-})
+@Component
 export default class LayoutComp extends Vue {
   private state: StateData = {
     form: {
       display: 'inline',
       margin: [0, 0, 20, 0],
       padding: [0, 10, 0, 0],
-      width: '0px',
-      height: '0px',
+      width: '0',
+      height: '0',
       flexDirection: 'row',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
@@ -282,13 +278,11 @@ export default class LayoutComp extends Vue {
 
         <bhabgsLabel title=''>
           <div class='width_height' slot='control'>
-            <a-input v-model={state.form.width}>
-              <span slot='addonAfter'>宽</span>
-            </a-input>
-            &nbsp;
-            <a-input v-model={state.form.height}>
-              <span slot='addonAfter'>高</span>
-            </a-input>
+            <a-input-number v-model={state.form.width} />
+            <span class='wh'>宽</span>
+            &nbsp;&nbsp;&nbsp;
+            <a-input-number v-model={state.form.height} />
+            <span class='wh'>高</span>
           </div>
         </bhabgsLabel>
       </div>

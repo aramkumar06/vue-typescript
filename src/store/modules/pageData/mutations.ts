@@ -2,12 +2,13 @@
  * @Autor: wpp
  * @Date: 2020-02-17 14:14:20
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-02-19 11:28:48
+ * @LastEditTime: 2020-02-19 13:53:54
  */
 
 import { MutationTree } from 'vuex';
 import { State } from './type';
 
+// 递归插入组件或布局
 const addToChildrenFn = (arr: any[], id: string, obj: any) => {
   for (const item of arr) {
     if (item.id === id) {

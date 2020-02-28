@@ -3,7 +3,6 @@ import { namespace } from 'vuex-class';
 import AlertCard from '@/views/editor/components/alert_card';
 import util from '@/utils';
 import { CANVAS_SETTING, viewport } from '@/store/modules/editOpt/type';
-import edit from '../code_edit';
 
 const editOpt = namespace('editOpt');
 
@@ -16,7 +15,6 @@ interface StateData {
 
 @Component({
   components: {
-    edit,
     AlertCard,
   },
 })
@@ -113,7 +111,7 @@ export default class globalArgs extends Vue {
   private get renderViewBody(): JSX.Element {
     const { state } = this;
     return (
-      <div slot='body' class='bhabgs_form body'>
+      <div slot='body' class='bhabgs_form body' style='padding:0 .8rem;'>
         <div class='bhangs_item'>
           <span class='b_name'>背景颜色</span>
           <div class='b_context'>

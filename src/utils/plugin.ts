@@ -3,8 +3,8 @@
  * @version: 0.0.1
  * @Author: bhabgs
  * @Date: 2020-01-10 14:50:19
- * @LastEditors  : bhabgs
- * @LastEditTime : 2020-02-14 10:24:11
+ * @LastEditors: bhabgs
+ * @LastEditTime: 2020-02-28 13:35:15
  */
 /* eslint-disable */
 import ant from 'ant-design-vue';
@@ -18,11 +18,13 @@ import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
 // eslint-disable-next-line
 import { VueConstructor } from 'vue/types/umd';
 import malyan from '@/components/malyanComponents';
+import editComponent from '@/components/style';
 
 export default {
   install(Vue: VueConstructor) {
     Vue.use(ant);
     Vue.use(malyan);
+    Vue.use(editComponent);
     Vue.prototype.$Editor = monaco;
   },
 };

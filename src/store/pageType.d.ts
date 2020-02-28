@@ -3,8 +3,8 @@
  * @version: 0.0.1
  * @Author: bhabgs
  * @Date: 2020-02-14 09:38:59
- * @LastEditors  : bhabgs
- * @LastEditTime : 2020-02-15 09:56:26
+ * @LastEditors: bhabgs
+ * @LastEditTime: 2020-02-19 14:06:20
  */
 interface style {} // 选择 typecss
 
@@ -39,5 +39,5 @@ export interface page {
   name: string;
   id: string;
   event: Event;
-  children: children;
+  children: layout[];
 }

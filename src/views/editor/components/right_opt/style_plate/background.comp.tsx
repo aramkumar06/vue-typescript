@@ -1,27 +1,26 @@
 import { Vue, Component, Watch } from 'vue-property-decorator';
+import { labelMap } from '@/components/style/radioGroupLabel';
 import { Background } from './style';
-import radioFroupLabel from '../../radioGroupLabel';
-import bhabgsLabel from '../../label';
 
 interface StateData {
   form: Background;
-  backgroundTypes: any[];
-  backgroundType: string;
+  backgroundTypes: labelMap[];
+  backgroundType: 'img' | 'color';
+  backgroundRepeat: labelMap[];
 }
 
-@Component({
-  components: { radioFroupLabel, bhabgsLabel },
-})
+@Component
 export default class BackgroundComp extends Vue {
   private state: StateData = {
     form: {
       background: '#ffffff',
+      backgroundRepeat: 'no-repeat',
     },
     backgroundType: 'color',
     backgroundTypes: [
       {
         title: '图片',
-        icon: 'fund',
+        icon: 'picture',
         value: 'img',
       },
       {
@@ -30,32 +29,61 @@ export default class BackgroundComp extends Vue {
         value: 'color',
       },
     ],
+    backgroundRepeat: [
+      {
+        title: '垂直方向与水平方向重复 repeat',
+        icon: 'appstore',
+        value: 'repeat',
+      },
+      {
+        title: '水平方向重复 repeat-x',
+        icon: 'bg-colors',
+        value: 'repeat-x',
+      },
+      {
+        title: '垂直方向重复 repeat-y',
+        icon: 'bg-colors',
+        value: 'repeat-y',
+      },
+      {
+        title: '不重复 no-repeat',
+        icon: 'bg-colors',
+        value: 'no-repeat',
+      },
+    ],
   };
 
-  @Watch('backgroundType', { deep: true })
+  // 检测背景类型变化 进行reset
+  @Watch('state.backgroundType', { deep: true })
   private watchVal() {
-    this.state.form.background = '';
+    if (this.state.backgroundType === 'img') {
+      this.state.form.background = '';
+    } else {
+      this.state.form.background = '#ffffff';
+    }
   }
 
+  // 根据背景类型渲染所需dom
   private get renderbackgroundType(): JSX.Element {
+    const { state } = this;
     const el: JSX.Element[] = [
       <bhabgsLabel title=''>
-        <a-input slot='control' value={this.state.form.background}>
-          <input
-            slot='addonBefore'
-            v-model={this.state.form.background}
-            type='color'
-          />
-        </a-input>
+        <colorInput slot='control' v-model={state.form.background} />
       </bhabgsLabel>,
-
-      <bhabgsLabel title=''>
-        <a-input
-          slot='control'
-          v-model={this.state.form.background}
-          placeholder='请输入图片url'
-        ></a-input>
-      </bhabgsLabel>,
+      <div>
+        <bhabgsLabel title=''>
+          <a-input
+            slot='control'
+            v-model={state.form.background}
+            placeholder='请输入图片url'
+          ></a-input>
+        </bhabgsLabel>
+        <radioFroupLabel
+          title='重复显示：'
+          map={state.backgroundRepeat}
+          v-model={state.form.backgroundRepeat}
+        />
+      </div>,
     ];
 
     if (this.state.backgroundType === 'color') {

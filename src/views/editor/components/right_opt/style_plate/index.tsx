@@ -2,12 +2,21 @@ import { Vue, Component } from 'vue-property-decorator';
 
 import LayoutComp from './layout.comp';
 import BackgroundComp from './background.comp';
+import PositionComp from './position.comp';
+import BorderComp from './border.comp';
+import TextComp from './text.comp';
 
 @Component({
-  components: { LayoutComp, BackgroundComp },
+  components: {
+    LayoutComp,
+    BackgroundComp,
+    PositionComp,
+    BorderComp,
+    TextComp,
+  },
 })
 export default class StylePlate extends Vue {
-  private activeKey: string = '2';
+  private activeKey: string = '5';
 
   render(): JSX.Element {
     return (
@@ -21,13 +30,13 @@ export default class StylePlate extends Vue {
             <BackgroundComp />
           </a-collapse-panel>
           <a-collapse-panel header='定位' key='3'>
-            <p>text</p>
+            <PositionComp />
           </a-collapse-panel>
           <a-collapse-panel header='边框' key='4'>
-            <p>text</p>
+            <BorderComp />
           </a-collapse-panel>
           <a-collapse-panel header='文字' key='5'>
-            <p>text</p>
+            <TextComp />
           </a-collapse-panel>
         </a-collapse>
       </div>

@@ -1,7 +1,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import AlertCard from '@/views/editor/components/alert_card';
-import { page } from '@/store/pageType';
+import { page, children } from '@/store/pageType';
 
 const pageData = namespace('pageData');
 
@@ -20,7 +20,7 @@ export default class ComponentsTree extends Vue {
     return [this.getPageContent];
   }
 
-  private selectFn(name: string[]) {
+  private selectFn(name: string[], obj: children) {
     this.SET_ACTIVEKEY(name[0]);
   }
 

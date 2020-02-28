@@ -1,31 +1,22 @@
-import { Vue, Component, Watch } from 'vue-property-decorator';
-import { namespace, Getter, Mutation } from 'vuex-class';
+import { Vue, Component } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import { CANVAS_SETTING } from '@/store/modules/editOpt/type';
+import { page } from '@/store/pageType';
 
 const editOpt = namespace('editOpt');
 const pageData = namespace('pageData');
 
 @Component
 export default class EditCanvas extends Vue {
-  @editOpt.Getter private CANVAS_SETTING!: CANVAS_SETTING;
+  @editOpt.State((state) => state.CANVAS_SETTING)
+  private getCanvasSetting!: CANVAS_SETTING;
 
-  @editOpt.Getter private globalArgs!: string;
+  @editOpt.State((state) => state.globalArgs) private getGlobalArgs!: string;
 
-  @pageData.Getter private getPageContent!: any;
+  @pageData.State((state) => state.pageContent)
+  private getPageContentInfo!: page;
 
-  @pageData.Mutation private ADD_TO_CHILDREN: any;
-
-  get getGlobalArgs(): string {
-    return this.globalArgs;
-  }
-
-  get getCanvasSetting(): CANVAS_SETTING {
-    return this.CANVAS_SETTING;
-  }
-
-  get getPageContentInfo(): any {
-    return this.getPageContent;
-  }
+  @pageData.Mutation private ADD_TO_CHILDREN!: Function;
 
   private dragEnterFn(e: Event) {
     //
@@ -74,23 +65,32 @@ export default class EditCanvas extends Vue {
   }
 
   private render() {
+    const {
+      getPageContentInfo,
+      getCanvasSetting,
+      getGlobalArgs,
+      dragEnterFn,
+      dragOverFn,
+      dropFn,
+      layoutDronFn,
+    } = this;
     return (
       <div
         id='edit_canvas'
-        ondragenter={this.dragEnterFn}
-        ondragover={this.dragOverFn}
-        ondrop={this.dropFn}
+        ondragenter={dragEnterFn}
+        ondragover={dragOverFn}
+        ondrop={dropFn}
       >
-        setting：{JSON.stringify(this.getCanvasSetting)} <br />
-        getGlobalArgs： {`\n${this.getGlobalArgs}`}
-        {this.getPageContentInfo.children.map((item: any) => {
+        setting：{JSON.stringify(getCanvasSetting)} <br />
+        getGlobalArgs： {`\n${getGlobalArgs}`}
+        {getPageContentInfo.children.map((item: any) => {
           return (
-            <layout ondropfn={this.layoutDronFn} layoutId={item.id}>
+            <layout ondropfn={layoutDronFn} layoutId={item.id}>
               {this.setlayout(item.children)}
             </layout>
           );
         })}
-        <pre>{JSON.stringify(this.getPageContentInfo, null, '\t')}</pre>
+        <pre>{JSON.stringify(getPageContentInfo, null, '\t')}</pre>
       </div>
     );
   }

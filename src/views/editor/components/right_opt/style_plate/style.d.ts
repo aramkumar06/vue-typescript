@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-02-17 11:16:47
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-02-17 11:16:47
+ * @LastEditTime: 2020-02-28 12:12:49
  */
 type flexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 // row（默认值）：主轴为水平方向，起点在左端。
@@ -48,11 +48,69 @@ export interface layoutStyle {
   flexWarp?: flexWarp;
 }
 
+type backgroundRepeat = 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat';
+// repeat 重复
+// repeat-x 水平方向重复
+// repeat-y 垂直方向重复
+// no- repeat 不重复
 export interface Background {
   background: string;
+  backgroundRepeat: backgroundRepeat;
+}
+
+export type positions = 'absolute' | 'fixed' | 'relative' | 'static';
+export interface Position {
+  position: positions;
+  zIndex: number;
+  top: string;
+  left: string;
+  bottom: string;
+  right: string;
+  float: 'left' | 'right' | 'none';
+}
+
+// hidden	与 "none" 相同。不过应用于表时除外，对于表，hidden 用于解决边框冲突。
+// dotted	定义点状边框。在大多数浏览器中呈现为实线。
+// dashed	定义虚线。在大多数浏览器中呈现为实线。
+// solid	定义实线。
+// double	定义双线。双线的宽度等于 border-width 的值。
+export type borderStyle = 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double';
+
+export interface Border {
+  borderRadius?: string | number;
+  borderLeft?: string;
+  borderRight?: string;
+  borderTop?: string;
+  borderBottom?: string;
+  border?: string;
+}
+
+export interface Font {
+  fontType?: 'normal' | 'oblique' | 'blod';
+  fontSize?: number;
+  opacity?: number;
+  lineHeight?: number;
+  color?: string;
+  textAlign?: 'center' | 'left' | 'right' | 'justify';
+  verticalAlign?: 'top' | 'middle' | 'bottom' | 'baseline';
 }
 
 export interface style {
   layoutStyle: layoutStyle;
   Background: Background;
 }
+
+// ant tip position type
+export type tipPosition =
+  | 'top'
+  | 'left'
+  | 'right'
+  | 'bottom'
+  | 'topLeft'
+  | 'topRight'
+  | 'bottomLeft'
+  | 'bottomRight'
+  | 'leftTop'
+  | 'leftBottom'
+  | 'rightTop'
+  | 'rightBottom';

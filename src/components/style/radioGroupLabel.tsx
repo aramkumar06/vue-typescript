@@ -5,6 +5,14 @@ interface StateData {
   value: string;
 }
 
+export interface labelMap {
+  title: string;
+  icon?: string;
+  value: string;
+}
+
+export { bhabgsLabel };
+
 @Component({
   components: { bhabgsLabel },
 })
@@ -14,13 +22,19 @@ export default class RadioGroupLabel extends Vue {
     required: true,
     default: [],
   })
-  private map!: Array<any>;
+  private map!: Array<labelMap>;
 
   @Prop({
     type: String,
     default: 'small',
   })
   private size!: string;
+
+  @Prop({
+    type: Boolean,
+    default: true,
+  })
+  private hasTitle?: boolean;
 
   @Prop({
     default: 'Title',
@@ -64,16 +78,16 @@ export default class RadioGroupLabel extends Vue {
           <span>{title}</span>
         </template>
         <a-radio-button value={value}>
-          <a-icon type={icon} />
+          <a-icon type={icon || 'appstore'} />
         </a-radio-button>
       </a-tooltip>
     );
   }
 
   render() {
-    const { renderTip, state, title, $slots, onChange, size } = this;
+    const { renderTip, state, title, $slots, onChange, size, hasTitle } = this;
     return (
-      <bhabgsLabel title={title}>
+      <bhabgsLabel title={title} hasTitle={hasTitle}>
         {$slots.title ? <div slot='title'>{$slots.title}</div> : ''}
         <a-radio-group
           onChange={onChange}
@@ -82,7 +96,7 @@ export default class RadioGroupLabel extends Vue {
           slot='control'
         >
           {this.map.map((item, key) => {
-            return renderTip(item.title, item.icon, item.value);
+            return renderTip(item.title, item.icon || '', item.value);
           })}
         </a-radio-group>
       </bhabgsLabel>

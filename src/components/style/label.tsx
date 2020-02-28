@@ -5,9 +5,15 @@ import { VNode } from 'vue';
 export default class BbhabgsLabel extends Vue {
   @Prop({
     type: String,
-    default: 'Title',
+    default: '',
   })
   private title!: string;
+
+  @Prop({
+    type: Boolean,
+    default: true,
+  })
+  private hasTitle?: boolean;
 
   private get renderLabel(): JSX.Element | VNode[] {
     const { $slots, title } = this;
@@ -18,10 +24,10 @@ export default class BbhabgsLabel extends Vue {
   }
 
   render(): JSX.Element {
-    const { renderLabel, $slots } = this;
+    const { renderLabel, $slots, hasTitle } = this;
     return (
       <div class='bhabgs_form_item'>
-        {renderLabel}
+        {hasTitle ? renderLabel : ''}
         <div class='bhabgs_form_item_control'>{$slots.control}</div>
       </div>
     );

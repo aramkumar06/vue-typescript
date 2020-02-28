@@ -1,13 +1,11 @@
 import { Component, Ref, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import AlertCard from '@/views/editor/components/alert_card';
-import edit from '../code_edit';
 
 const editOpt = namespace('editOpt');
 
 @Component({
   components: {
-    edit,
     AlertCard,
   },
 })
