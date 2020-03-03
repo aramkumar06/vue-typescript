@@ -1,6 +1,5 @@
 import { Vue, Component, Watch, Model, Emit } from 'vue-property-decorator';
 import { labelMap } from '@/components/style/radioGroupLabel';
-import util from '@/utils';
 import { Font } from './style';
 
 interface StateData {
@@ -17,7 +16,12 @@ export default class TextComp extends Vue {
   @Watch('state.form', { deep: true })
   @Emit('input')
   private sendStyle() {
-    return util.JSON_STYLE_TO_STRING(this.state.form);
+    return this.state.form;
+  }
+
+  @Watch('value')
+  private valWatch() {
+    this.state.form = Object.assign(this.state.form, this.value);
   }
 
   private created() {

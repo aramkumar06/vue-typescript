@@ -1,8 +1,8 @@
 /*
  * @Autor: wpp
  * @Date: 2020-02-12 14:11:04
- * @LastEditors: wpp
- * @LastEditTime: 2020-02-18 10:30:56
+ * @LastEditors: bhabgs
+ * @LastEditTime: 2020-03-03 13:56:24
  */
 import { component } from './type';
 
@@ -10,14 +10,14 @@ const componentData: component[] = [
   {
     name: '卡片',
     type: 'component',
-    style: {},
+    css: {},
     permissions: {},
     prop: {},
   },
   {
     name: '柱形图',
     type: 'component',
-    style: {},
+    css: {},
     permissions: {},
     prop: {},
   },

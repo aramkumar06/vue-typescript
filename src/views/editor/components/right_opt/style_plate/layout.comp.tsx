@@ -1,5 +1,4 @@
 import { Vue, Component, Watch, Emit, Model } from 'vue-property-decorator';
-import util from '@/utils';
 import { layoutStyle } from './style';
 
 interface layout {
@@ -27,8 +26,8 @@ export default class LayoutComp extends Vue {
       display: 'block',
       margin: [0, 0, 0, 0],
       padding: [0, 0, 0, 0],
-      width: '100',
-      height: '100',
+      width: 100,
+      height: 100,
       flexDirection: 'row',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
@@ -165,19 +164,12 @@ export default class LayoutComp extends Vue {
   @Watch('state.form', { deep: true })
   @Emit('input')
   private getStyle() {
-    const styleDataa = {};
-    for (const i in this.state.form) {
-      if (i === 'margin' || i === 'padding') {
-        const mp: string[] = [];
-        this.state.form[i].forEach((item, key) => {
-          mp.push(`${item || 0}px`);
-        });
-        styleDataa[i] = mp.join(' ');
-      } else {
-        styleDataa[i] = this.state.form[i];
-      }
-    }
-    return util.JSON_STYLE_TO_STRING(styleDataa);
+    return this.state.form;
+  }
+
+  @Watch('value')
+  private valWatch() {
+    this.state.form = Object.assign(this.state.form, this.value);
   }
 
   private renderFlexStyle(): JSX.Element[] | string {

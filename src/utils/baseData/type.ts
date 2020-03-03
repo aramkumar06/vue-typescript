@@ -3,8 +3,8 @@
  * @version: 0.0.1
  * @Author: bhabgs
  * @Date: 2020-02-14 09:38:59
- * @LastEditors  : bhabgs
- * @LastEditTime : 2020-02-15 09:56:26
+ * @LastEditors: bhabgs
+ * @LastEditTime: 2020-03-03 13:56:15
  */
 interface style {} // 选择 typecss
 
@@ -22,7 +22,7 @@ export interface layout {
   id: string;
   name: string;
   type: string;
-  style: style;
+  css: style;
   children: children;
 }
 
@@ -30,7 +30,7 @@ export interface component {
   id?: string;
   name: string;
   type: Type;
-  style: style;
+  css: style;
   permissions: Permissions;
   prop: Prop;
 }

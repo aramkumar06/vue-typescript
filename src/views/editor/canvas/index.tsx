@@ -1,5 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
+import filRedSty, { cloneStyle } from '@/utils/filredsty';
 import { CANVAS_SETTING } from '@/store/modules/editOpt/type';
 import { page } from '@/store/pageType';
 
@@ -16,7 +17,12 @@ export default class EditCanvas extends Vue {
   @pageData.State((state) => state.pageContent)
   private getPageContentInfo!: page;
 
+  @pageData.State((state) => state.activeKey)
+  private activeKey!: string;
+
   @pageData.Mutation private ADD_TO_CHILDREN!: Function;
+
+  @pageData.Mutation private SET_ACTIVEKEY!: Function;
 
   private dragEnterFn(e: Event) {
     //
@@ -51,21 +57,47 @@ export default class EditCanvas extends Vue {
     });
   }
 
+  private setClass(id: any) {
+    return ['b_comp', this.activeKey === id ? 'comp_active' : ''];
+  }
+
   private setlayout(arr: any[]) {
     return arr.map((item) => {
+      const css = filRedSty(item.css);
       if (item.type === 'layout') {
         return (
           <layout
             ondropfn={this.layoutDronFn}
             layoutId={item.id}
-            style={item.style}
+            style={css}
+            class={this.setClass(item.id)}
+            nativeOnClick={(e: Event) => {
+              e.stopPropagation();
+              this.setActiveKey(item.id);
+            }}
           >
             {this.setlayout(item.children)}
           </layout>
         );
       }
-      return <div style={item.style}>将来我是组件{item.name}</div>;
+      return (
+        <div
+          style={css}
+          class={this.setClass(item.id)}
+          onClick={(e: Event) => {
+            e.stopPropagation();
+            this.setActiveKey(item.id);
+          }}
+        >
+          将来我是组件{item.name}
+        </div>
+      );
     });
+  }
+
+  private setActiveKey(id: any) {
+    this.SET_ACTIVEKEY(id);
+    // this.activeKey = id;
   }
 
   private render() {
@@ -73,10 +105,12 @@ export default class EditCanvas extends Vue {
       getPageContentInfo,
       getCanvasSetting,
       getGlobalArgs,
+      setActiveKey,
       dragEnterFn,
       dragOverFn,
       dropFn,
       layoutDronFn,
+      activeKey,
     } = this;
     return (
       <div
@@ -88,11 +122,17 @@ export default class EditCanvas extends Vue {
         {/* setting：{JSON.stringify(getCanvasSetting)} <br />
         getGlobalArgs： {`\n${getGlobalArgs}`} */}
         {getPageContentInfo.children.map((item: any) => {
+          const css = filRedSty(item.css);
           return (
             <layout
               ondropfn={layoutDronFn}
               layoutId={item.id}
-              style={item.style}
+              class={this.setClass(item.id)}
+              style={css}
+              nativeOnClick={(e: Event) => {
+                e.stopPropagation();
+                setActiveKey(item.id);
+              }}
             >
               {this.setlayout(item.children)}
             </layout>

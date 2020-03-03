@@ -1,6 +1,6 @@
 import { Vue, Component, Watch, Model, Emit } from 'vue-property-decorator';
-import util from '@/utils';
 import { labelMap } from '@/components/style/radioGroupLabel';
+import { deepCopy } from '@/utils';
 import { Border, borderStyle, tipPosition } from './style';
 
 interface StateData {
@@ -12,11 +12,18 @@ interface StateData {
   borderStyle: borderStyle;
   borderStyles: labelMap[];
   borderPosition: number;
+  li: {
+    text: string;
+    position?: tipPosition;
+    color?: string;
+    style?: borderStyle;
+    size?: number;
+  }[];
 }
 
 @Component
 export default class BorderComp extends Vue {
-  private state: StateData = {
+  private state: StateData | any = {
     form: {
       borderRadius: [0, 0, 0, 0],
       borderLeft: '',
@@ -63,108 +70,85 @@ export default class BorderComp extends Vue {
         value: 'double',
       },
     ],
+    li: [
+      {
+        text: '',
+      },
+      {
+        text: '上',
+        size: 1,
+        style: 'solid',
+        color: '#000000',
+      },
+      {
+        text: '',
+      },
+      {
+        text: '左',
+        position: 'left',
+        size: 1,
+        style: 'solid',
+        color: '#000000',
+      },
+      {
+        text: '全',
+        size: 1,
+        style: 'solid',
+        color: '#000000',
+      },
+      {
+        text: '右',
+        position: 'right',
+        style: 'solid',
+        size: 1,
+        color: '#000000',
+      },
+      {
+        text: '',
+      },
+      {
+        text: '下',
+        position: 'bottom',
+        size: 1,
+        style: 'solid',
+        color: '#000000',
+      },
+      {
+        text: '',
+      },
+    ],
   };
 
   @Model('input', { type: Object })
-  private value!: Border;
+  private value!: any;
 
-  @Watch('state.form', { deep: true })
-  @Watch('li', { deep: true })
-  @Emit('input')
-  private sendStyle() {
-    const styleData: any = {};
-    const { state, li } = this;
-    const who = li[state.borderPosition];
-
-    if (state.borderPosition === 4) {
-      // 统一边框
-      styleData.border = `${who.size}px ${who.style} ${who.color}`;
-    } else {
-      const top = li[1];
-      const left = li[3];
-      const right = li[5];
-      const bottom = li[7];
-      styleData.borderTop = `${top.size}px ${top.style} ${top.color}`;
-      styleData.borderLeft = `${left.size}px ${left.style} ${left.color}`;
-      styleData.borderRight = `${right.size}px ${right.style} ${right.color}`;
-      styleData.borderBottom = `${bottom.size}px ${bottom.style} ${bottom.color}`;
-    }
-
-    // 处理border- radius
-    if (state.borderType === 'radius') {
-      styleData.borderRadius = `${state.form.borderRadius[0]}px`;
-    } else {
-      styleData.borderRadius = `${state.form.borderRadius[0]}px ${state.form.borderRadius[1]}px ${state.form.borderRadius[2]}px ${state.form.borderRadius[3]}px`;
-    }
-
-    return util.JSON_STYLE_TO_STRING(styleData);
+  @Watch('value')
+  private valWatch() {
+    this.state = Object.assign(this.value.state, { li: this.value.li });
+    console.log(this.state);
   }
 
   @Watch('state.borderType')
-  private watchType() {
-    this.$nextTick(() => {
-      this.state.form.borderRadius = [0, 0, 0, 0];
-    });
+  private a() {
+    this.state.borderRadius = [0, 0, 0, 0];
+  }
+
+  @Watch('state', { deep: true })
+  @Emit('input')
+  private sendStyle() {
+    const { state } = this;
+    const borderData: any = {
+      li: state.li,
+      state,
+    };
+
+    return borderData;
   }
 
   private created() {
     this.state.form = Object.assign(this.state.form, this.value);
     this.sendStyle();
   }
-
-  private li: {
-    text: string;
-    position?: tipPosition;
-    color?: string;
-    style?: borderStyle;
-    size?: number;
-  }[] = [
-    {
-      text: '',
-    },
-    {
-      text: '上',
-      size: 1,
-      style: 'solid',
-      color: '#000000',
-    },
-    {
-      text: '',
-    },
-    {
-      text: '左',
-      position: 'left',
-      size: 1,
-      style: 'solid',
-      color: '#000000',
-    },
-    {
-      text: '全',
-      size: 1,
-      style: 'solid',
-      color: '#000000',
-    },
-    {
-      text: '右',
-      position: 'right',
-      style: 'solid',
-      size: 1,
-      color: '#000000',
-    },
-    {
-      text: '',
-    },
-    {
-      text: '下',
-      position: 'bottom',
-      size: 1,
-      style: 'solid',
-      color: '#000000',
-    },
-    {
-      text: '',
-    },
-  ];
 
   // 根据需求渲染border-radius
   private renderBorderRadius() {
@@ -210,14 +194,14 @@ export default class BorderComp extends Vue {
 
   // 渲染九宫格border
   private renderSudoku() {
-    const { li, state } = this;
-    const who = li[state.borderPosition];
+    const { state } = this;
+    const who = state.li[state.borderPosition];
     return (
       <bhabgsLabel title=''>
         <div slot='control'>
           <div class='sudoku'>
             <div class='sudoku_box'>
-              {li.map((item, key) => {
+              {state.li.map((item: any, key: number) => {
                 return (
                   <div
                     class={[state.borderPosition === key ? 'active' : '']}

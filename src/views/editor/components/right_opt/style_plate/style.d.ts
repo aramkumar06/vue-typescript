@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-02-17 11:16:47
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-02 15:40:42
+ * @LastEditTime: 2020-03-03 15:34:56
  */
 type flexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 // row（默认值）：主轴为水平方向，起点在左端。
@@ -40,8 +40,8 @@ export interface layoutStyle {
   display?: string;
   margin: number[];
   padding: number[];
-  width?: string;
-  height?: string;
+  width?: number;
+  height?: number;
   flexDirection?: flexDirection;
   justifyContent?: justifyContent;
   alignItems?: alignItems;

@@ -4,15 +4,15 @@
  * @Author: bhabgs
  * @Date: 2020-03-02 14:08:43
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-03 09:18:55
+ * @LastEditTime: 2020-03-03 16:16:25
  */
 import { layoutStyle, Position, Background, Border, Font } from './style';
 const layoutStyle: layoutStyle = {
   display: 'inline',
   margin: [0, 0, 20, 0],
   padding: [0, 10, 0, 0],
-  width: '0',
-  height: '0',
+  width: 0,
+  height: 0,
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',

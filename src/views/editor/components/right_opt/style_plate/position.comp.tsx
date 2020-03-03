@@ -63,13 +63,18 @@ export default class PositionComp extends Vue {
     ],
   };
 
+  @Watch('value')
+  private valWatch() {
+    this.state.form = Object.assign(this.state.form, this.value);
+  }
+
   @Model('input', { type: Object })
   private value!: Position;
 
   @Watch('state.form', { deep: true })
   @Emit('input')
   private sendStyle() {
-    return util.JSON_STYLE_TO_STRING(this.state.form);
+    return this.state.form;
   }
 
   private created() {

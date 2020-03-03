@@ -12,7 +12,7 @@ const layoutData: layout[] = [
     id: '',
     name: 'row-layout',
     type: 'layout',
-    style: {},
+    css: {},
     children: [],
   },
 ];
