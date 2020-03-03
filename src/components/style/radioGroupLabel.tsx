@@ -1,4 +1,11 @@
-import { Vue, Component, Prop, Model, Emit } from 'vue-property-decorator';
+import {
+  Vue,
+  Component,
+  Prop,
+  Model,
+  Emit,
+  Watch,
+} from 'vue-property-decorator';
 import bhabgsLabel from './label';
 
 interface StateData {
@@ -45,6 +52,11 @@ export default class RadioGroupLabel extends Vue {
 
   @Model('input', { type: String })
   private value!: string;
+
+  @Watch('value')
+  private asyncChangeVal() {
+    this.state.value = this.value;
+  }
 
   @Emit('input')
   private changeValue(e: string) {

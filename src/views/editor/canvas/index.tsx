@@ -55,12 +55,16 @@ export default class EditCanvas extends Vue {
     return arr.map((item) => {
       if (item.type === 'layout') {
         return (
-          <layout ondropfn={this.layoutDronFn} layoutId={item.id}>
+          <layout
+            ondropfn={this.layoutDronFn}
+            layoutId={item.id}
+            style={item.style}
+          >
             {this.setlayout(item.children)}
           </layout>
         );
       }
-      return <div>将来我是组件{item.name}</div>;
+      return <div style={item.style}>将来我是组件{item.name}</div>;
     });
   }
 
@@ -81,16 +85,20 @@ export default class EditCanvas extends Vue {
         ondragover={dragOverFn}
         ondrop={dropFn}
       >
-        setting：{JSON.stringify(getCanvasSetting)} <br />
-        getGlobalArgs： {`\n${getGlobalArgs}`}
+        {/* setting：{JSON.stringify(getCanvasSetting)} <br />
+        getGlobalArgs： {`\n${getGlobalArgs}`} */}
         {getPageContentInfo.children.map((item: any) => {
           return (
-            <layout ondropfn={layoutDronFn} layoutId={item.id}>
+            <layout
+              ondropfn={layoutDronFn}
+              layoutId={item.id}
+              style={item.style}
+            >
               {this.setlayout(item.children)}
             </layout>
           );
         })}
-        <pre>{JSON.stringify(getPageContentInfo, null, '\t')}</pre>
+        {/* <pre>{JSON.stringify(getPageContentInfo, null, '\t')}</pre> */}
       </div>
     );
   }

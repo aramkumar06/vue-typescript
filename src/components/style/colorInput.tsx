@@ -1,4 +1,11 @@
-import { Vue, Component, Model, Emit, Prop } from 'vue-property-decorator';
+import {
+  Vue,
+  Component,
+  Model,
+  Emit,
+  Prop,
+  Watch,
+} from 'vue-property-decorator';
 
 interface Event {
   target: { value: any };
@@ -23,6 +30,11 @@ export default class ColorInput extends Vue {
   private state = {
     value: '#000000',
   };
+
+  @Watch('value')
+  private asyncChangeValue() {
+    this.state.value = this.value;
+  }
 
   private created() {
     this.state.value = this.value;

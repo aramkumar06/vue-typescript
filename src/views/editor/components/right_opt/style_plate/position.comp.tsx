@@ -1,5 +1,6 @@
-import { Vue, Component, Watch } from 'vue-property-decorator';
+import { Vue, Component, Watch, Model, Emit } from 'vue-property-decorator';
 import { labelMap } from '@/components/style/radioGroupLabel';
+import util from '@/utils';
 import { Position, positions } from './style';
 
 interface position {
@@ -17,10 +18,10 @@ interface StateData {
 export default class PositionComp extends Vue {
   private state: StateData = {
     form: {
-      top: '0px',
-      left: '0px',
-      bottom: '0px',
-      right: '0px',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
       zIndex: 0,
       float: 'none',
       position: 'static',
@@ -62,9 +63,18 @@ export default class PositionComp extends Vue {
     ],
   };
 
+  @Model('input', { type: Object })
+  private value!: Position;
+
   @Watch('state.form', { deep: true })
-  private changePosition() {
-    console.log(this.state.form);
+  @Emit('input')
+  private sendStyle() {
+    return util.JSON_STYLE_TO_STRING(this.state.form);
+  }
+
+  private created() {
+    this.state.form = Object.assign(this.state.form, this.value);
+    this.sendStyle();
   }
 
   render() {
@@ -96,7 +106,7 @@ export default class PositionComp extends Vue {
                     maxlength='6'
                     height='100%'
                     autocomplete='off'
-                    value=''
+                    v-model={state.form.top}
                   />
                 </div>
                 <div class='right_div'>
@@ -105,7 +115,7 @@ export default class PositionComp extends Vue {
                     maxlength='6'
                     height='100%'
                     autocomplete='off'
-                    value=''
+                    v-model={state.form.right}
                   />
                 </div>
                 <div class='bottom_div'>
@@ -114,7 +124,7 @@ export default class PositionComp extends Vue {
                     maxlength='6'
                     height='100%'
                     autocomplete='off'
-                    value=''
+                    v-model={state.form.bottom}
                   />
                 </div>
                 <div class='left_div'>
@@ -123,7 +133,7 @@ export default class PositionComp extends Vue {
                     maxlength='6'
                     height='100%'
                     autocomplete='off'
-                    value=''
+                    v-model={state.form.left}
                   />
                 </div>
               </div>

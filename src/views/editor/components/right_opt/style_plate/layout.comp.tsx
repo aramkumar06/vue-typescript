@@ -1,4 +1,5 @@
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Watch, Emit, Model } from 'vue-property-decorator';
+import util from '@/utils';
 import { layoutStyle } from './style';
 
 interface layout {
@@ -18,17 +19,20 @@ interface StateData {
 
 @Component
 export default class LayoutComp extends Vue {
+  @Model('input', { type: Object })
+  private value!: layoutStyle;
+
   private state: StateData = {
     form: {
-      display: 'inline',
-      margin: [0, 0, 20, 0],
-      padding: [0, 10, 0, 0],
-      width: '0',
-      height: '0',
+      display: 'block',
+      margin: [0, 0, 0, 0],
+      padding: [0, 0, 0, 0],
+      width: '100',
+      height: '100',
       flexDirection: 'row',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
-      flexWarp: 'nowrap',
+      flexWrap: 'nowrap',
     },
     layouts: [
       {
@@ -153,6 +157,29 @@ export default class LayoutComp extends Vue {
     ],
   };
 
+  private created() {
+    this.state.form = Object.assign(this.state.form, this.value);
+    this.getStyle();
+  }
+
+  @Watch('state.form', { deep: true })
+  @Emit('input')
+  private getStyle() {
+    const styleDataa = {};
+    for (const i in this.state.form) {
+      if (i === 'margin' || i === 'padding') {
+        const mp: string[] = [];
+        this.state.form[i].forEach((item, key) => {
+          mp.push(`${item || 0}px`);
+        });
+        styleDataa[i] = mp.join(' ');
+      } else {
+        styleDataa[i] = this.state.form[i];
+      }
+    }
+    return util.JSON_STYLE_TO_STRING(styleDataa);
+  }
+
   private renderFlexStyle(): JSX.Element[] | string {
     const { state } = this;
     let flexElement: JSX.Element[] | string = '';
@@ -177,17 +204,22 @@ export default class LayoutComp extends Vue {
         <radioFroupLabel
           title='换行'
           map={state.flexWarp}
-          v-model={state.form.flexWarp}
+          v-model={state.form.flexWrap}
         />,
       ];
     }
     return flexElement;
   }
 
+  private formClass: string = '';
+
+  private formstyle: any = {};
+
   render(): JSX.Element {
-    const { renderFlexStyle, state } = this;
+    const { renderFlexStyle, state, formClass, formstyle } = this;
     return (
       <div id='layout_comp' class='bhabgs_form'>
+        <div class={formClass} style={formstyle}></div>
         <radioFroupLabel
           title='布局模式: '
           map={state.layouts}

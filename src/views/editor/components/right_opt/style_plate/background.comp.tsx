@@ -1,5 +1,6 @@
-import { Vue, Component, Watch } from 'vue-property-decorator';
+import { Vue, Component, Watch, Emit, Model } from 'vue-property-decorator';
 import { labelMap } from '@/components/style/radioGroupLabel';
+import util from '@/utils';
 import { Background } from './style';
 
 interface StateData {
@@ -52,6 +53,20 @@ export default class BackgroundComp extends Vue {
       },
     ],
   };
+
+  @Model('input', { type: Object })
+  private value!: Background;
+
+  @Watch('state.form', { deep: true })
+  @Emit('input')
+  private sendStyle() {
+    return util.JSON_STYLE_TO_STRING(this.state.form);
+  }
+
+  private created() {
+    this.state.form = Object.assign(this.state.form, this.value);
+    this.sendStyle();
+  }
 
   // 检测背景类型变化 进行reset
   @Watch('state.backgroundType', { deep: true })

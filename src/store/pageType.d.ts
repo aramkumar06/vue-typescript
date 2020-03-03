@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-02-14 09:38:59
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-02-19 14:06:20
+ * @LastEditTime: 2020-03-02 17:22:58
  */
 interface style {} // 选择 typecss
 
@@ -33,6 +33,7 @@ export interface component {
   style: style;
   permissions: Permissions;
   prop: Prop;
+  children?: children;
 }
 
 export interface page {

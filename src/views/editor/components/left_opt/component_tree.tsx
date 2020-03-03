@@ -21,6 +21,9 @@ export default class ComponentsTree extends Vue {
   }
 
   private selectFn(name: string[], obj: children) {
+    if (name[0] === 'page') {
+      return;
+    }
     this.SET_ACTIVEKEY(name[0]);
   }
 
@@ -36,7 +39,6 @@ export default class ComponentsTree extends Vue {
     return (
       <AlertCard {...alertCardComponentsTree}>
         <div class='component-tree-body' slot='body'>
-          {this.activeKey}
           {this.getPageContentInfo.map((item: any) => {
             return (
               <a-tree

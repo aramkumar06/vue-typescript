@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-02-17 11:16:47
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-02-28 12:12:49
+ * @LastEditTime: 2020-03-02 15:40:42
  */
 type flexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 // row（默认值）：主轴为水平方向，起点在左端。
@@ -38,14 +38,14 @@ type flexWarp = 'nowrap' | 'wrap' | 'wrap-reverse';
 
 export interface layoutStyle {
   display?: string;
-  margin: (string | number)[];
-  padding: (string | number)[];
+  margin: number[];
+  padding: number[];
   width?: string;
   height?: string;
   flexDirection?: flexDirection;
   justifyContent?: justifyContent;
   alignItems?: alignItems;
-  flexWarp?: flexWarp;
+  flexWrap?: flexWarp;
 }
 
 type backgroundRepeat = 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat';
@@ -54,19 +54,19 @@ type backgroundRepeat = 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat';
 // repeat-y 垂直方向重复
 // no- repeat 不重复
 export interface Background {
-  background: string;
-  backgroundRepeat: backgroundRepeat;
+  background?: string;
+  backgroundRepeat?: backgroundRepeat;
 }
 
 export type positions = 'absolute' | 'fixed' | 'relative' | 'static';
 export interface Position {
-  position: positions;
-  zIndex: number;
-  top: string;
-  left: string;
-  bottom: string;
-  right: string;
-  float: 'left' | 'right' | 'none';
+  position?: positions;
+  zIndex?: number;
+  top?: number;
+  left?: number;
+  bottom?: number;
+  right?: number;
+  float?: 'left' | 'right' | 'none';
 }
 
 // hidden	与 "none" 相同。不过应用于表时除外，对于表，hidden 用于解决边框冲突。
@@ -77,7 +77,7 @@ export interface Position {
 export type borderStyle = 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double';
 
 export interface Border {
-  borderRadius?: string | number;
+  borderRadius: number[];
   borderLeft?: string;
   borderRight?: string;
   borderTop?: string;
@@ -98,6 +98,9 @@ export interface Font {
 export interface style {
   layoutStyle: layoutStyle;
   Background: Background;
+  font: Font;
+  border: Border;
+  position: Position;
 }
 
 // ant tip position type
