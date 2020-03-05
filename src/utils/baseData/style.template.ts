@@ -4,9 +4,9 @@
  * @Author: bhabgs
  * @Date: 2020-03-02 14:08:43
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-04 16:46:18
+ * @LastEditTime: 2020-03-05 15:10:16
  */
-import { layoutStyle, Position, Background, Font } from './style';
+import { layoutStyle, Position, Background, Font, Border } from '@/types/style';
 
 const layoutstyle: layoutStyle = {
   display: 'block',
@@ -30,7 +30,7 @@ const positions: Position = {
   position: 'static',
 };
 
-const border: any = {
+const border: Border = {
   borderRadius: [0, 0, 0, 0],
   borderLeft: '',
   borderRight: '',

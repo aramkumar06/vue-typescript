@@ -63,35 +63,15 @@ export default class PositionComp extends Vue {
     ],
   };
 
-  @Watch('value')
-  private valWatch() {
-    this.state.form = Object.assign(this.state.form, this.value);
-  }
-
   @Model('input', { type: Object })
   private value!: Position;
 
-  @Watch('state.form', { deep: true })
-  @Emit('input')
-  private sendStyle() {
-    return this.state.form;
-  }
-
-  private created() {
-    this.state.form = Object.assign(this.state.form, this.value);
-    this.sendStyle();
-  }
-
   render() {
-    const { state } = this;
+    const { state, value } = this;
     return (
       <div id='PositionComp' class='bhabgs_form'>
         <bhabgsLabel title='定位类型：'>
-          <a-select
-            v-model={state.form.position}
-            slot='control'
-            style='width:100%;'
-          >
+          <a-select v-model={value.position} slot='control' style='width:100%;'>
             {state.positions.map((item, key) => {
               return (
                 <a-select-option value={item.position}>
@@ -101,7 +81,7 @@ export default class PositionComp extends Vue {
             })}
           </a-select>
         </bhabgsLabel>
-        {state.form.position !== 'static' ? (
+        {value.position !== 'static' ? (
           <div>
             <bhabgsLabel title=''>
               <div class='position_tlbr' slot='control'>
@@ -111,7 +91,7 @@ export default class PositionComp extends Vue {
                     maxlength='6'
                     height='100%'
                     autocomplete='off'
-                    v-model={state.form.top}
+                    v-model={value.top}
                   />
                 </div>
                 <div class='right_div'>
@@ -120,7 +100,7 @@ export default class PositionComp extends Vue {
                     maxlength='6'
                     height='100%'
                     autocomplete='off'
-                    v-model={state.form.right}
+                    v-model={value.right}
                   />
                 </div>
                 <div class='bottom_div'>
@@ -129,7 +109,7 @@ export default class PositionComp extends Vue {
                     maxlength='6'
                     height='100%'
                     autocomplete='off'
-                    v-model={state.form.bottom}
+                    v-model={value.bottom}
                   />
                 </div>
                 <div class='left_div'>
@@ -138,14 +118,14 @@ export default class PositionComp extends Vue {
                     maxlength='6'
                     height='100%'
                     autocomplete='off'
-                    v-model={state.form.left}
+                    v-model={value.left}
                   />
                 </div>
               </div>
             </bhabgsLabel>
             <bhabgsLabel title='层级顺序'>
               <div slot='control'>
-                <a-input type='number' v-model={state.form.zIndex}></a-input>
+                <a-input type='number' v-model={value.zIndex}></a-input>
               </div>
             </bhabgsLabel>
           </div>
@@ -155,7 +135,7 @@ export default class PositionComp extends Vue {
 
         <radioFroupLabel
           map={state.float}
-          v-model={state.form.float}
+          v-model={value.float}
           title='浮动方向：'
         />
       </div>

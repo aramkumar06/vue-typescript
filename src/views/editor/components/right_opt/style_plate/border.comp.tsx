@@ -1,6 +1,5 @@
 import { Vue, Component, Watch, Model, Emit } from 'vue-property-decorator';
 import { labelMap } from '@/components/style/radioGroupLabel';
-import { deepCopy } from '@/utils';
 import { Border, borderStyle, tipPosition } from './style';
 
 interface StateData {
@@ -24,18 +23,6 @@ interface StateData {
 @Component
 export default class BorderComp extends Vue {
   private state: StateData | any = {
-    form: {
-      borderRadius: [0, 0, 0, 0],
-      borderLeft: '',
-      borderRight: '',
-      borderTop: '',
-      borderBottom: '',
-      border: '',
-    },
-    size: 0,
-    color: '#000000',
-    borderType: 'radius',
-    borderPosition: 4,
     borderTypes: [
       {
         title: '统一角度',
@@ -46,7 +33,6 @@ export default class BorderComp extends Vue {
         value: 'custom',
       },
     ],
-    borderStyle: 'hidden',
     borderStyles: [
       {
         title:
@@ -70,89 +56,19 @@ export default class BorderComp extends Vue {
         value: 'double',
       },
     ],
-    li: [
-      {
-        text: '',
-      },
-      {
-        text: '上',
-        size: 1,
-        style: 'solid',
-        color: '#000000',
-      },
-      {
-        text: '',
-      },
-      {
-        text: '左',
-        position: 'left',
-        size: 1,
-        style: 'solid',
-        color: '#000000',
-      },
-      {
-        text: '全',
-        size: 1,
-        style: 'solid',
-        color: '#000000',
-      },
-      {
-        text: '右',
-        position: 'right',
-        style: 'solid',
-        size: 1,
-        color: '#000000',
-      },
-      {
-        text: '',
-      },
-      {
-        text: '下',
-        position: 'bottom',
-        size: 1,
-        style: 'solid',
-        color: '#000000',
-      },
-      {
-        text: '',
-      },
-    ],
   };
 
   @Model('input', { type: Object })
   private value!: any;
 
-  @Watch('value')
-  private valWatch() {
-    this.state = Object.assign(this.value.state, { li: this.value.li });
-    console.log(this.state);
-  }
-
-  @Watch('state.borderType')
+  @Watch('value.borderType')
   private a() {
-    this.state.borderRadius = [0, 0, 0, 0];
-  }
-
-  @Watch('state', { deep: true })
-  @Emit('input')
-  private sendStyle() {
-    const { state } = this;
-    const borderData: any = {
-      li: state.li,
-      state,
-    };
-
-    return borderData;
-  }
-
-  private created() {
-    this.state.form = Object.assign(this.state.form, this.value);
-    this.sendStyle();
+    // this.value.borderRadius = [0, 0, 0, 0];
   }
 
   // 根据需求渲染border-radius
   private renderBorderRadius() {
-    const { state } = this;
+    const { value } = this;
     const li: JSX.Element[] = [
       <bhabgsLabel title=''>
         <sliderInput
@@ -161,32 +77,32 @@ export default class BorderComp extends Vue {
           step={1}
           unit='px'
           slot='control'
-          v-model={state.form.borderRadius[0]}
+          v-model={value.borderRadius[0]}
         />
       </bhabgsLabel>,
       <bhabgsLabel title=''>
         <a-row slot='control' class='custom_border'>
           <a-col span='12'>
             左上：
-            <a-input-number v-model={state.form.borderRadius[0]} />
+            <a-input-number v-model={value.borderRadius[0]} />
           </a-col>
           <a-col span='12'>
             右上：
-            <a-input-number v-model={state.form.borderRadius[1]} />
+            <a-input-number v-model={value.borderRadius[1]} />
           </a-col>
           <a-col span='12'>
             左下：
-            <a-input-number v-model={state.form.borderRadius[2]} />
+            <a-input-number v-model={value.borderRadius[2]} />
           </a-col>
           <a-col span='12'>
             右 下：
-            <a-input-number v-model={state.form.borderRadius[3]} />
+            <a-input-number v-model={value.borderRadius[3]} />
           </a-col>
         </a-row>
       </bhabgsLabel>,
     ];
 
-    if (state.borderType === 'custom') {
+    if (value.borderType === 'custom') {
       return li[1];
     }
     return li[0];
@@ -194,20 +110,20 @@ export default class BorderComp extends Vue {
 
   // 渲染九宫格border
   private renderSudoku() {
-    const { state } = this;
-    const who = state.li[state.borderPosition];
+    const { state, value } = this;
+    const who = value.li[value.borderPosition];
     return (
       <bhabgsLabel title=''>
         <div slot='control'>
           <div class='sudoku'>
             <div class='sudoku_box'>
-              {state.li.map((item: any, key: number) => {
+              {value.li.map((item: any, key: number) => {
                 return (
                   <div
-                    class={[state.borderPosition === key ? 'active' : '']}
+                    class={[value.borderPosition === key ? 'active' : '']}
                     onClick={() => {
                       if (item.text) {
-                        state.borderPosition = key;
+                        value.borderPosition = key;
                       }
                     }}
                   >
@@ -244,12 +160,12 @@ export default class BorderComp extends Vue {
   }
 
   private render() {
-    const { state, renderSudoku, renderBorderRadius } = this;
+    const { state, renderSudoku, renderBorderRadius, value } = this;
     return (
       <div id='border_comp' class='bhabgs_form'>
         <radioFroupLabel
           map={state.borderTypes}
-          v-model={state.borderType}
+          v-model={value.borderType}
           title='角度规则: '
         />
 

@@ -1,6 +1,7 @@
 import { Vue, Component, Watch } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
-import { deepCopy } from '@/utils';
+import { deepCopy, coalesceStyle } from '@/utils';
+import baseData from '@/utils/baseData/style.template';
 import LayoutComp from './layout.comp';
 import BackgroundComp from './background.comp';
 import PositionComp from './position.comp';
@@ -22,7 +23,7 @@ export default class StylePlate extends Vue {
   private getStyle() {
     if (this.activeData.css) {
       this.$nextTick(() => {
-        this.activeData.css = deepCopy(this.styleForm);
+        this.activeData.css = Object.assign(this.styleForm);
       });
     }
   }
@@ -40,11 +41,12 @@ export default class StylePlate extends Vue {
     // 反向设置样式
     if (Object.keys(this.activeData.css).length <= 0) {
       // 空样式组
+      this.styleForm = deepCopy(baseData);
       this.getStyle();
     } else {
       // 设置子集样式
       // 如果style属性样式存在就反向设置
-      this.styleForm = deepCopy(this.activeData.css);
+      this.styleForm = coalesceStyle(this.activeData.css);
       // console.log(this.activeData.css);
     }
   }

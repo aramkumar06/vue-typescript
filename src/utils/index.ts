@@ -4,10 +4,11 @@
  * @Author: bhabgs
  * @Date: 2020-02-07 15:21:13
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-03 16:33:42
+ * @LastEditTime: 2020-03-05 15:28:42
  */
 import editDefaultVal from './editDefaultCode';
 import baseData from './baseData';
+import coalesceStyle from './coalesceStyle';
 
 export const deepCopy = (source: any): any => {
   const target = Array.isArray(source) ? [] : {};
@@ -22,6 +23,8 @@ export const deepCopy = (source: any): any => {
   }
   return target;
 };
+
+export { coalesceStyle };
 
 export default {
   editDefaultVal,

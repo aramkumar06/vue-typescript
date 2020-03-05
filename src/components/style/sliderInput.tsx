@@ -1,4 +1,11 @@
-import { Vue, Component, Model, Emit, Prop } from 'vue-property-decorator';
+import {
+  Vue,
+  Component,
+  Model,
+  Emit,
+  Prop,
+  Watch,
+} from 'vue-property-decorator';
 
 interface Event {
   target: { value: any };
@@ -47,6 +54,11 @@ export default class SliderInput extends Vue {
   private state = {
     value: 0,
   };
+
+  @Watch('value')
+  private watchValue() {
+    this.state.value = this.value;
+  }
 
   private created() {
     this.state.value = this.value;

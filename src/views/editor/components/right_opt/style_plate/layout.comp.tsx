@@ -8,7 +8,6 @@ interface layout {
 }
 
 interface StateData {
-  form: layoutStyle;
   layouts: layout[];
   flexDirection: any[];
   justifyContent: any[];
@@ -22,17 +21,6 @@ export default class LayoutComp extends Vue {
   private value!: layoutStyle;
 
   private state: StateData = {
-    form: {
-      display: 'block',
-      margin: [0, 0, 0, 0],
-      padding: [0, 0, 0, 0],
-      width: 100,
-      height: 100,
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      flexWrap: 'nowrap',
-    },
     layouts: [
       {
         title: '内联布局 -- inline',
@@ -156,47 +144,31 @@ export default class LayoutComp extends Vue {
     ],
   };
 
-  private created() {
-    this.state.form = Object.assign(this.state.form, this.value);
-    this.getStyle();
-  }
-
-  @Watch('state.form', { deep: true })
-  @Emit('input')
-  private getStyle() {
-    return this.state.form;
-  }
-
-  @Watch('value')
-  private valWatch() {
-    this.state.form = Object.assign(this.state.form, this.value);
-  }
-
   private renderFlexStyle(): JSX.Element[] | string {
-    const { state } = this;
+    const { state, value } = this;
     let flexElement: JSX.Element[] | string = '';
 
-    if (this.state.form.display === 'flex') {
+    if (this.value.display === 'flex') {
       flexElement = [
         <radioFroupLabel
           title='主轴方向'
           map={state.flexDirection}
-          v-model={state.form.flexDirection}
+          v-model={value.flexDirection}
         />,
         <radioFroupLabel
           title='主轴对齐'
           map={state.justifyContent}
-          v-model={state.form.justifyContent}
+          v-model={value.justifyContent}
         />,
         <radioFroupLabel
           title='辅轴对其'
           map={state.alignItems}
-          v-model={state.form.alignItems}
+          v-model={value.alignItems}
         />,
         <radioFroupLabel
           title='换行'
           map={state.flexWarp}
-          v-model={state.form.flexWrap}
+          v-model={value.flexWrap}
         />,
       ];
     }
@@ -208,14 +180,14 @@ export default class LayoutComp extends Vue {
   private formstyle: any = {};
 
   render(): JSX.Element {
-    const { renderFlexStyle, state, formClass, formstyle } = this;
+    const { renderFlexStyle, state, formClass, formstyle, value } = this;
     return (
       <div id='layout_comp' class='bhabgs_form'>
         <div class={formClass} style={formstyle}></div>
         <radioFroupLabel
           title='布局模式: '
           map={state.layouts}
-          v-model={state.form.display}
+          v-model={value.display}
         />
         {renderFlexStyle()}
         <bhabgsLabel title=''>
@@ -227,7 +199,7 @@ export default class LayoutComp extends Vue {
                   maxlength='6'
                   height='100%'
                   autocomplete='off'
-                  v-model={state.form.margin[0]}
+                  v-model={value.margin[0]}
                 />
               </span>
             </div>
@@ -238,7 +210,7 @@ export default class LayoutComp extends Vue {
                 maxlength='6'
                 height='100%'
                 autocomplete='off'
-                v-model={state.form.margin[3]}
+                v-model={value.margin[3]}
               />
             </div>
 
@@ -249,7 +221,7 @@ export default class LayoutComp extends Vue {
                 maxlength='6'
                 height='100%'
                 autocomplete='off'
-                v-model={state.form.margin[2]}
+                v-model={value.margin[2]}
               />
             </div>
 
@@ -260,52 +232,36 @@ export default class LayoutComp extends Vue {
                   maxlength='6'
                   height='100%'
                   autocomplete='off'
-                  v-model={state.form.margin[1]}
+                  v-model={value.margin[1]}
                 />
               </span>
             </div>
 
             <div class='padding_top_div'>
-              <input
-                type='text'
-                placeholder='0'
-                v-model={state.form.padding[0]}
-              />
+              <input type='text' placeholder='0' v-model={value.padding[0]} />
             </div>
 
             <div class='padding_right_div'>
-              <input
-                type='text'
-                placeholder='0'
-                v-model={state.form.padding[3]}
-              />
+              <input type='text' placeholder='0' v-model={value.padding[3]} />
             </div>
 
             <div class='padding_bottom_div'>
               <span class='help_txt'>PADDING</span>
-              <input
-                type='text'
-                placeholder='0'
-                v-model={state.form.padding[2]}
-              />
+              <input type='text' placeholder='0' v-model={value.padding[2]} />
             </div>
 
             <div class='padding_left_div'>
-              <input
-                type='text'
-                placeholder='0'
-                v-model={state.form.padding[1]}
-              />
+              <input type='text' placeholder='0' v-model={value.padding[1]} />
             </div>
           </div>
         </bhabgsLabel>
 
         <bhabgsLabel title=''>
           <div class='width_height' slot='control'>
-            <a-input-number v-model={state.form.width} />
+            <a-input-number v-model={value.width} />
             <span class='wh'>宽</span>
             &nbsp;&nbsp;&nbsp;
-            <a-input-number v-model={state.form.height} />
+            <a-input-number v-model={value.height} />
             <span class='wh'>高</span>
           </div>
         </bhabgsLabel>

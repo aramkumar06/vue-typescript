@@ -13,22 +13,6 @@ export default class TextComp extends Vue {
   @Model('input', { type: Object })
   private value!: Font;
 
-  @Watch('state.form', { deep: true })
-  @Emit('input')
-  private sendStyle() {
-    return this.state.form;
-  }
-
-  @Watch('value')
-  private valWatch() {
-    this.state.form = Object.assign(this.state.form, this.value);
-  }
-
-  private created() {
-    this.state.form = Object.assign(this.state.form, this.value);
-    this.sendStyle();
-  }
-
   private state: StateData = {
     form: {
       fontType: 'normal',
@@ -78,23 +62,23 @@ export default class TextComp extends Vue {
   };
 
   private render() {
-    const { state } = this;
+    const { state, value } = this;
     return (
       <div id='text_comp' class='bhabgs_form'>
         <bhabgsLabel title='字符：'>
           <template slot='control'>
             <tip tip='文字大小'>
-              <a-input-number v-model={state.form.fontSize} />
+              <a-input-number v-model={value.fontSize} />
             </tip>
             <tip tip='行高'>
-              <a-input-number v-model={state.form.lineHeight} />
+              <a-input-number v-model={value.lineHeight} />
             </tip>
           </template>
         </bhabgsLabel>
         <bhabgsLabel>
           <template slot='control'>
             <tip tip='字体样式'>
-              <a-select v-model={state.form.fontType}>
+              <a-select v-model={value.fontType}>
                 <a-select-option value='normal'>正常</a-select-option>
                 <a-select-option value='oblique'>粗体</a-select-option>
                 <a-select-option value='blod'>斜体</a-select-option>
@@ -102,19 +86,19 @@ export default class TextComp extends Vue {
             </tip>
 
             <tip tip='字体颜色'>
-              <colorInput v-model={state.form.color} />
+              <colorInput v-model={value.color} />
             </tip>
           </template>
         </bhabgsLabel>
         <radioFroupLabel
           title='对齐方式：'
           map={state.textAlign}
-          v-model={state.form.textAlign}
+          v-model={value.textAlign}
         />
         <radioFroupLabel
           title=''
           map={state.verticalAlign}
-          v-model={state.form.verticalAlign}
+          v-model={value.verticalAlign}
         />
         <bhabgsLabel title='透明度：'>
           <sliderInput
@@ -123,7 +107,7 @@ export default class TextComp extends Vue {
             step={10}
             unit='%'
             slot='control'
-            v-model={state.form.opacity}
+            v-model={value.opacity}
           />
         </bhabgsLabel>
       </div>

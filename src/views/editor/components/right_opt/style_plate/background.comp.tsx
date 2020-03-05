@@ -56,29 +56,13 @@ export default class BackgroundComp extends Vue {
   @Model('input', { type: Object })
   private value!: Background;
 
-  @Watch('state.form', { deep: true })
-  @Emit('input')
-  private sendStyle() {
-    return this.state.form;
-  }
-
-  @Watch('value')
-  private valWatch() {
-    this.state.form = Object.assign(this.state.form, this.value);
-  }
-
-  private created() {
-    this.state.form = Object.assign(this.state.form, this.value);
-    this.sendStyle();
-  }
-
   // 检测背景类型变化 进行reset
   @Watch('state.backgroundType', { deep: true })
   private watchVal() {
     if (this.state.backgroundType === 'img') {
-      this.state.form.background = '';
+      this.value.background = '';
     } else {
-      this.state.form.background = '#ffffff';
+      this.value.background = '#ffffff';
     }
   }
 
@@ -87,20 +71,20 @@ export default class BackgroundComp extends Vue {
     const { state } = this;
     const el: JSX.Element[] = [
       <bhabgsLabel title=''>
-        <colorInput slot='control' v-model={state.form.background} />
+        <colorInput slot='control' v-model={this.value.background} />
       </bhabgsLabel>,
       <div>
         <bhabgsLabel title=''>
           <a-input
             slot='control'
-            v-model={state.form.background}
+            v-model={this.value.background}
             placeholder='请输入图片url'
           ></a-input>
         </bhabgsLabel>
         <radioFroupLabel
           title='重复显示：'
           map={state.backgroundRepeat}
-          v-model={state.form.backgroundRepeat}
+          v-model={this.value.backgroundRepeat}
         />
       </div>,
     ];

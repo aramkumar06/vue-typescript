@@ -2,7 +2,7 @@
  * @Autor: wpp
  * @Date: 2020-02-12 14:11:04
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-03 13:56:24
+ * @LastEditTime: 2020-03-05 15:58:55
  */
 import { component } from './type';
 
@@ -10,7 +10,11 @@ const componentData: component[] = [
   {
     name: '卡片',
     type: 'component',
-    css: {},
+    css: {
+      layoutStyle: {
+        height: 10,
+      },
+    },
     permissions: {},
     prop: {},
   },

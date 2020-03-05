@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-03-03 14:56:16
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-03 17:12:09
+ * @LastEditTime: 2020-03-04 15:34:55
  */
 const ignorStyle = [];
 
@@ -27,9 +27,9 @@ function marginPadding(val: any) {
 }
 
 function Border(i: string, style: any, data: any) {
-  const { state, li } = style;
-  const who = li[state.borderPosition];
-  if (state.borderPosition === 4) {
+  const { li } = style;
+  const who = li[style.borderPosition];
+  if (style.borderPosition === 4) {
     // 统一边框
     data.border = `${who.size}px ${who.style} ${who.color}`;
   } else {
@@ -43,10 +43,10 @@ function Border(i: string, style: any, data: any) {
     data.borderBottom = `${bottom.size}px ${bottom.style} ${bottom.color}`;
   }
   // 处理border- radius
-  if (state.borderType === 'radius') {
-    data.borderRadius = `${state.form.borderRadius[0]}px`;
+  if (style.borderType === 'radius') {
+    data.borderRadius = `${style.borderRadius[0]}px`;
   } else {
-    data.borderRadius = `${state.form.borderRadius[0]}px ${state.form.borderRadius[1]}px ${state.form.borderRadius[2]}px ${state.form.borderRadius[3]}px`;
+    data.borderRadius = `${style.borderRadius[0]}px ${style.borderRadius[1]}px ${style.borderRadius[2]}px ${style.borderRadius[3]}px`;
   }
 }
 
@@ -59,10 +59,13 @@ export default (style: any) => {
       Border(i, style[i], data);
       continue;
     }
+
     for (const n in style[i]) {
       if (n === 'margin' || n === 'padding') {
         // 处理 margin and padding
         data[n] = marginPadding(style[i][n]);
+      } else if (n === 'opacity') {
+        data[n] = style[i][n] / 100;
       } else {
         data[n] = Number(style[i][n])
           ? `${Number(style[i][n])}px`
