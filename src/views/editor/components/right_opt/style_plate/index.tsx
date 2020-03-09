@@ -34,6 +34,8 @@ export default class StylePlate extends Vue {
   @pageData.State((state) => state.activeData)
   private activeData!: any;
 
+  @pageData.Mutation private REMOVE_WHO!: Function;
+
   private activeKey: string = '1';
 
   @Watch('activeData')
@@ -88,7 +90,22 @@ export default class StylePlate extends Vue {
   render(): JSX.Element {
     return (
       <div id='style_plate'>
-        <div class='select_comp'>当前选中: {this.active}</div>
+        <div class='select_comp'>
+          当前选中:
+          <span v-show={this.activeData.name}>
+            {this.activeData.name}
+            <a-button
+              type='danger'
+              size='small'
+              style='margin-left: 10px;'
+              onClick={() => {
+                this.REMOVE_WHO(this.activeData.treeId || this.activeData.id);
+              }}
+            >
+              删除
+            </a-button>
+          </span>
+        </div>
         {this.renderPlate()}
       </div>
     );

@@ -3,13 +3,12 @@
  * @version: 0.0.1
  * @Author: bhabgs
  * @Date: 2020-02-14 09:38:48
- * @LastEditors: wpp
- * @LastEditTime: 2020-02-18 10:59:39
+ * @LastEditors: bhabgs
+ * @LastEditTime: 2020-03-06 11:49:35
  */
-import pageData from './pageData';
-import layoutData from './layoutData';
-import componentData from './componentData';
+import compData from './comp.base';
+import style from './style.template';
 
-const baseData: any = { pageData, layoutData, componentData };
+const baseData: any = { compData, style };
 
 export default baseData;

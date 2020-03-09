@@ -1,9 +1,8 @@
 import { Vue, Component, Watch, Model, Emit } from 'vue-property-decorator';
 import { labelMap } from '@/components/style/radioGroupLabel';
-import { Font } from './style';
+import { Font } from '@/types/style';
 
 interface StateData {
-  form: Font;
   textAlign: labelMap[];
   verticalAlign: labelMap[];
 }
@@ -14,15 +13,6 @@ export default class TextComp extends Vue {
   private value!: Font;
 
   private state: StateData = {
-    form: {
-      fontType: 'normal',
-      fontSize: 16,
-      textAlign: 'left',
-      verticalAlign: 'top',
-      opacity: 100,
-      color: '#000000',
-      lineHeight: 16,
-    },
     textAlign: [
       {
         title: '左对对齐',
@@ -89,6 +79,13 @@ export default class TextComp extends Vue {
               <colorInput v-model={value.color} />
             </tip>
           </template>
+        </bhabgsLabel>
+        <bhabgsLabel title='文字：'>
+          <a-input
+            slot='control'
+            placeholder='Basic usage'
+            v-model={value.value}
+          />
         </bhabgsLabel>
         <radioFroupLabel
           title='对齐方式：'

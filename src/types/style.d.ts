@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-02-17 11:16:47
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-05 15:10:04
+ * @LastEditTime: 2020-03-05 17:42:48
  */
 type flexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 // row（默认值）：主轴为水平方向，起点在左端。
@@ -102,6 +102,7 @@ export interface Font {
   opacity?: number;
   lineHeight?: number;
   color?: string;
+  value: string;
   textAlign?: 'center' | 'left' | 'right' | 'justify';
   verticalAlign?: 'top' | 'middle' | 'bottom' | 'baseline';
 }

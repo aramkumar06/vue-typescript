@@ -6,39 +6,25 @@ import baseData from '@/utils';
   components: { AlertCard },
 })
 export default class ComponentsList extends Vue {
-  private selectDefaultValue: string = 'layout';
+  private selectDefaultValue: string = 'baseComponent';
 
   private componentListLoopBody: any[] = [];
 
   private componentType: any[] = [
     {
-      code: 'layout',
-      title: '布局组件',
-    },
-    {
       code: 'baseComponent',
       title: '基础组件',
     },
-    /*   {
-      code: 'components',
-      title: '组件群',
-    }, */
   ];
 
   private mounted() {
-    this.changeSelect('layout');
+    this.changeSelect('baseComponent');
   }
 
   private changeSelect(value: string) {
     switch (value) {
-      case 'layout':
-        this.componentListLoopBody = baseData.layoutData;
-        break;
       case 'baseComponent':
-        this.componentListLoopBody = baseData.componentData;
-        break;
-      case 'components':
-        this.componentListLoopBody = [];
+        this.componentListLoopBody = baseData.compData;
         break;
       default:
         this.componentListLoopBody = [];

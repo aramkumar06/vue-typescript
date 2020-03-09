@@ -24,36 +24,14 @@ export default class EditCanvas extends Vue {
 
   @pageData.Mutation private SET_ACTIVEKEY!: Function;
 
-  private dragEnterFn(e: Event) {
-    //
-  }
-
-  private dragOverFn(e: Event) {
-    e.preventDefault();
-  }
-
-  private dropFn(e: any) {
-    e.preventDefault();
-    const data = JSON.parse(e.dataTransfer.getData('componentInfo'));
-    data.id = `Layout${Date.parse(new Date().toString()) / 1000}`;
-    this.pageContentAddLayout(data);
-  }
-
-  private pageContentAddLayout(obj: any) {
-    if (obj.type !== 'layout') {
+  private layoutDronFn(obj: any) {
+    if (obj.parent.id === 'page' && obj.componentInfo.type !== 'layout') {
       this.$message.error('请添加布局组件');
       return;
     }
     this.ADD_TO_CHILDREN({
-      component: obj,
-      parentId: this.getPageContentInfo.id,
-    });
-  }
-
-  private layoutDronFn(obj: any) {
-    this.ADD_TO_CHILDREN({
       component: obj.componentInfo,
-      parentId: obj.currentComponent,
+      parent: obj.parent,
     });
   }
 
@@ -64,40 +42,28 @@ export default class EditCanvas extends Vue {
   private setlayout(arr: any[]) {
     return arr.map((item) => {
       const css = filRedSty(item.css);
-      if (item.type === 'layout') {
-        return (
-          <layout
-            ondropfn={this.layoutDronFn}
-            layoutId={item.id}
-            style={css}
-            class={this.setClass(item.id)}
-            nativeOnClick={(e: Event) => {
-              e.stopPropagation();
-              this.setActiveKey(item.id);
-            }}
-          >
-            {this.setlayout(item.children)}
-          </layout>
-        );
-      }
+      const text = item.css.font ? item.css.font.value : '';
       return (
-        <div
+        <item.component
+          ondropfn={this.layoutDronFn}
+          layout={item}
           style={css}
           class={this.setClass(item.id)}
-          onClick={(e: Event) => {
+          nativeOnClick={(e: Event) => {
             e.stopPropagation();
             this.setActiveKey(item.id);
           }}
         >
-          将来我是组件{item.name}
-        </div>
+          {item.children && item.children.length > 0
+            ? this.setlayout(item.children)
+            : text}
+        </item.component>
       );
     });
   }
 
   private setActiveKey(id: any) {
     this.SET_ACTIVEKEY(id);
-    // this.activeKey = id;
   }
 
   private render() {
@@ -106,40 +72,18 @@ export default class EditCanvas extends Vue {
       getCanvasSetting,
       getGlobalArgs,
       setActiveKey,
-      dragEnterFn,
-      dragOverFn,
-      dropFn,
-      layoutDronFn,
       activeKey,
     } = this;
     return (
-      <div
+      <layout
         id='edit_canvas'
-        ondragenter={dragEnterFn}
-        ondragover={dragOverFn}
-        ondrop={dropFn}
+        ondropfn={this.layoutDronFn}
+        layout={getPageContentInfo}
       >
         {/* setting：{JSON.stringify(getCanvasSetting)} <br />
         getGlobalArgs： {`\n${getGlobalArgs}`} */}
-        {getPageContentInfo.children.map((item: any) => {
-          const css = filRedSty(item.css);
-          return (
-            <layout
-              ondropfn={layoutDronFn}
-              layoutId={item.id}
-              class={this.setClass(item.id)}
-              style={css}
-              nativeOnClick={(e: Event) => {
-                e.stopPropagation();
-                setActiveKey(item.id);
-              }}
-            >
-              {this.setlayout(item.children)}
-            </layout>
-          );
-        })}
-        {/* <pre>{JSON.stringify(getPageContentInfo, null, '\t')}</pre> */}
-      </div>
+        {this.setlayout(getPageContentInfo.children)}
+      </layout>
     );
   }
 }

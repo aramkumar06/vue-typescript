@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-03-02 14:08:43
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-05 15:10:16
+ * @LastEditTime: 2020-03-05 17:16:53
  */
 import { layoutStyle, Position, Background, Font, Border } from '@/types/style';
 
@@ -96,8 +96,9 @@ const font: Font = {
   textAlign: 'left',
   verticalAlign: 'top',
   opacity: 100,
-  color: '#000000',
+  color: '#ffffff',
   lineHeight: 16,
+  value: '',
 };
 
 const background: Background = {

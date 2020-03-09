@@ -2,10 +2,10 @@
  * @Autor: wpp
  * @Date: 2020-02-17 14:14:20
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-02 17:24:06
+ * @LastEditTime: 2020-03-09 09:29:33
  */
-import { page, component, layout } from '../../pageType';
-export { component, layout, page };
+import { page, component } from '../../pageType';
+export { component, page };
 export interface State {
   pageContent: page;
   activeKey: string;
