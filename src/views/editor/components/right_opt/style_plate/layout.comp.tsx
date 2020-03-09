@@ -210,7 +210,7 @@ export default class LayoutComp extends Vue {
                 maxlength='6'
                 height='100%'
                 autocomplete='off'
-                v-model={value.margin[3]}
+                v-model={value.margin[1]}
               />
             </div>
 
@@ -232,7 +232,7 @@ export default class LayoutComp extends Vue {
                   maxlength='6'
                   height='100%'
                   autocomplete='off'
-                  v-model={value.margin[1]}
+                  v-model={value.margin[3]}
                 />
               </span>
             </div>
@@ -242,7 +242,7 @@ export default class LayoutComp extends Vue {
             </div>
 
             <div class='padding_right_div'>
-              <input type='text' placeholder='0' v-model={value.padding[3]} />
+              <input type='text' placeholder='0' v-model={value.padding[1]} />
             </div>
 
             <div class='padding_bottom_div'>
@@ -251,7 +251,7 @@ export default class LayoutComp extends Vue {
             </div>
 
             <div class='padding_left_div'>
-              <input type='text' placeholder='0' v-model={value.padding[1]} />
+              <input type='text' placeholder='0' v-model={value.padding[3]} />
             </div>
           </div>
         </bhabgsLabel>

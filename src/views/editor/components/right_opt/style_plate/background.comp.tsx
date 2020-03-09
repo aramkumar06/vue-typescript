@@ -3,7 +3,6 @@ import { labelMap } from '@/components/style/radioGroupLabel';
 import { Background } from './style';
 
 interface StateData {
-  form: Background;
   backgroundTypes: labelMap[];
   backgroundType: 'img' | 'color';
   backgroundRepeat: labelMap[];
@@ -12,10 +11,6 @@ interface StateData {
 @Component
 export default class BackgroundComp extends Vue {
   private state: StateData = {
-    form: {
-      background: '#ffffff',
-      backgroundRepeat: 'no-repeat',
-    },
     backgroundType: 'color',
     backgroundTypes: [
       {

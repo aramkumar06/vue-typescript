@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-03-02 14:08:43
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-05 17:16:53
+ * @LastEditTime: 2020-03-09 15:15:21
  */
 import { layoutStyle, Position, Background, Font, Border } from '@/types/style';
 
@@ -102,8 +102,8 @@ const font: Font = {
 };
 
 const background: Background = {
-  background: '#000000',
   backgroundRepeat: 'no-repeat',
+  background: '#000000',
 };
 
 export default {
