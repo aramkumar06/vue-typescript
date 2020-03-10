@@ -15,9 +15,10 @@
   },
   "main": "background.js",
   "dependencies": {
+    "ant-design-vue": "^1.4.10",
     "core-js": "^3.4.4",
     "http-server": "^0.12.1",
-    "ant-design-vue": "^1.4.10",
+    "typestyle": "^2.0.4",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-drag-zone": "^2.0.0-rc1",
@@ -49,6 +50,7 @@
     "monaco-editor-webpack-plugin": "^1.8.2",
     "prettier": "^1.19.1",
     "typescript": "^3.7.5",
+    "vue-cli-plugin-aepe-lint": "~1.1.3",
     "vue-cli-plugin-electron-builder": "^1.4.4",
     "vue-eslint-parser": "^7.0.0",
     "vue-template-compiler": "^2.6.10"

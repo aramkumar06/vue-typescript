@@ -1,0 +1,93 @@
+@borderColor: #d6e4ff;
+@activeColor: #bfd4fb;
+#PositionComp {
+  .position_tlbr {
+    position: relative;
+    height: 100px;
+    > div {
+      color: black;
+      position: absolute;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      input {
+        outline: none;
+        border: none;
+        background: none;
+        position: absolute;
+        text-align: center;
+      }
+    }
+    .top_div {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-top: 30px solid @borderColor;
+      input {
+        top: -30px;
+        height: 30px;
+        line-height: 30px;
+      }
+      &:hover {
+        border-top-color: @activeColor;
+      }
+    }
+    .right_div {
+      top: 5px;
+      bottom: 5px;
+      right: 0;
+      width: 0;
+      border-top: 30px solid transparent;
+      border-bottom: 30px solid transparent;
+      border-right: 30px solid @borderColor;
+      input {
+        right: -30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: right;
+      }
+      &:hover {
+        border-right-color: @activeColor;
+      }
+    }
+    .bottom_div {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 30px solid @borderColor;
+      input {
+        bottom: -30px;
+        height: 30px;
+        line-height: 30px;
+      }
+      &:hover {
+        border-bottom-color: @activeColor;
+      }
+    }
+    .left_div {
+      top: 5px;
+      bottom: 5px;
+      left: 0;
+      width: 0;
+      border-top: 30px solid transparent;
+      border-bottom: 30px solid transparent;
+      border-left: 30px solid @borderColor;
+      input {
+        left: -30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: left;
+      }
+      &:hover {
+        border-left-color: @activeColor;
+      }
+    }
+  }
+}

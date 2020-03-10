@@ -1,6 +1,8 @@
 @import './components/alert_card.less';
 @import './components/canvas_setting.less';
 @import './components/left_opt/components_list.less';
+@import './components/right_opt/index.less';
+@import './components/left_opt/components_tree.less';
 .animate {
   transition: width 0.2s ease-in-out;
 }
@@ -109,11 +111,35 @@
   flex: 1;
   background-color: #fff;
   margin: 0.5rem;
+  overflow: auto;
+  .b_comp {
+    &:before {
+      content: attr(data-instance-name) !important;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: unset;
+      bottom: unset;
+      color: #666 !important;
+      font-size: 12px !important;
+      float: left;
+      padding: 0 5px !important;
+      line-height: 12px !important;
+      height: 12px;
+      overflow: hidden;
+      background: hsla(0, 0%, 87.1%, 0.7);
+      z-index: 2;
+      border-left: 3px solid transparent;
+      transform-origin: 0 0;
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+    }
+  }
 }
 
 // right opt
 #right_opt {
-  width: 300px;
+  width: 350px;
   box-sizing: border-box;
   background-color: #fff;
   border-left: 1px solid @grey5;

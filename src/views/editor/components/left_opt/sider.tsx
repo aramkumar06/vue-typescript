@@ -1,5 +1,5 @@
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { Getter, namespace } from 'vuex-class';
+import { namespace } from 'vuex-class';
 import { EDITMODEL } from '@/store/types';
 
 import componentList from './components_list';
@@ -62,23 +62,13 @@ export default class EditSider extends Vue {
   // 马良模式 编辑 还是预览
   @editOpt.State((state) => state.EDITMODEL) private EDITMODEL?: EDITMODEL;
 
-  private get GETEDITMODEL() {
-    return this.EDITMODEL;
-  }
-
-  @Getter private REDIOVAL?: string;
-
-  private get GETREDIOVAL() {
-    return this.REDIOVAL;
-  }
-
   // 检查是否是预览模式 为预览与编辑模式设置不同场景
-  @Watch('GETEDITMODEL')
+  @Watch('EDITMODEL')
   private changeGETEDITMODEL() {
-    if (this.GETEDITMODEL === 'preview') {
+    if (this.EDITMODEL === 'preview') {
       this.MUT_COLLAPSED(false);
       setTimeout(() => {
-        this.setSiderEditWidth(this.GETEDITMODEL);
+        this.setSiderEditWidth(this.EDITMODEL);
         this.MUT_COLLAPSED(true);
       }, 400);
     } else {
@@ -181,7 +171,6 @@ export default class EditSider extends Vue {
       State,
       changeButtonGroup,
       renderBtns,
-      onChange,
       renderOptComponent,
     } = this;
     return (
