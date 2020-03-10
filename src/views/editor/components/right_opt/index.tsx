@@ -39,7 +39,7 @@ export default class rightOpt extends Vue {
 
   get renderTabs(): JSX.Element {
     return (
-      <a-tabs type='card' defaultActiveKey={0}>
+      <a-tabs type='card' defaultActiveKey={3}>
         {this.tabs.map((item, key) => {
           return (
             <a-tab-pane tab={item.title} key={key}>
