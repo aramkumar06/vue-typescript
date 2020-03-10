@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-03-03 14:56:16
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-04 15:34:55
+ * @LastEditTime: 2020-03-09 15:34:34
  */
 const ignorStyle = [];
 
@@ -52,7 +52,7 @@ function Border(i: string, style: any, data: any) {
 
 export default (style: any) => {
   const data = {};
-
+  const re = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i;
   /* eslint no-continue: 0 */
   for (const i in style) {
     if (i === 'border') {
@@ -66,6 +66,9 @@ export default (style: any) => {
         data[n] = marginPadding(style[i][n]);
       } else if (n === 'opacity') {
         data[n] = style[i][n] / 100;
+      } else if (n === 'background' && !re.test(style[i][n])) {
+        data['background-image'] = `url(${style[i][n]});`;
+        console.log(data['background-image']);
       } else {
         data[n] = Number(style[i][n])
           ? `${Number(style[i][n])}px`

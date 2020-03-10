@@ -92,11 +92,11 @@ export default class BorderComp extends Vue {
           </a-col>
           <a-col span='12'>
             左下：
-            <a-input-number v-model={value.borderRadius[2]} />
+            <a-input-number v-model={value.borderRadius[3]} />
           </a-col>
           <a-col span='12'>
             右 下：
-            <a-input-number v-model={value.borderRadius[3]} />
+            <a-input-number v-model={value.borderRadius[2]} />
           </a-col>
         </a-row>
       </bhabgsLabel>,

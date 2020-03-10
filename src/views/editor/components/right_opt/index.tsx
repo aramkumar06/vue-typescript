@@ -2,12 +2,14 @@ import { Vue, Component, Watch } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import { EDITMODEL } from '@/store/types';
 import StylePlate from './style_plate';
+import SourceData from './data_source';
 
 const editOpt = namespace('editOpt');
 
 @Component({
   components: {
     StylePlate,
+    SourceData,
   },
 })
 export default class rightOpt extends Vue {
@@ -31,29 +33,17 @@ export default class rightOpt extends Vue {
     },
     {
       title: '数据',
-      comp: '',
+      comp: 'SourceData',
     },
   ];
 
-  private renderComp(type: string): JSX.Element {
-    let comp: JSX.Element = <div></div>;
-    switch (type) {
-      case 'StylePlate':
-        comp = <StylePlate />;
-        break;
-      default:
-        comp = <div></div>;
-    }
-    return comp;
-  }
-
   get renderTabs(): JSX.Element {
     return (
-      <a-tabs type='card' defaultActiveKey={0}>
+      <a-tabs type='card' defaultActiveKey={3}>
         {this.tabs.map((item, key) => {
           return (
             <a-tab-pane tab={item.title} key={key}>
-              {this.renderComp(item.comp)}
+              <item.comp />
             </a-tab-pane>
           );
         })}
