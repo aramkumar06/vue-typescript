@@ -14,6 +14,7 @@ import getters from './getters';
 import mutations from './mutations';
 import editOpt from './modules/editOpt';
 import pageData from './modules/pageData';
+import baseData from './modules/baseData';
 
 Vue.use(Vuex);
 export default new Vuex.Store({
@@ -24,5 +25,6 @@ export default new Vuex.Store({
   modules: {
     editOpt,
     pageData,
+    baseData,
   },
 });

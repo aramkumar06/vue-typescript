@@ -1,3 +1,40 @@
 .card {
-  
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: #333;
+  .img-part {
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .img {
+      width: 108px;
+      height: 108px;
+      overflow: hidden;
+      border-radius: 50%;
+      border-radius: 50%;
+      border: 1px solid #333;
+    }
+  }
+  .text-part,
+  .params-part {
+    height: 20%;
+  }
+
+  .text-part {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .params-part {
+      display: flex;
+      .item{
+          width: 49.5%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+  }
 }

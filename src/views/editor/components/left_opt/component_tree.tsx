@@ -21,7 +21,7 @@ export default class ComponentsTree extends Vue {
   }
 
   private selectFn(name: string[], obj: component[]) {
-    if (name[0] === 'page') {
+    if (name[0] === 'page' || !name[0]) {
       return;
     }
     this.SET_ACTIVEKEY(name[0]);

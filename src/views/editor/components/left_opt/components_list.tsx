@@ -1,11 +1,19 @@
 import { Vue, Component } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import AlertCard from '@/views/editor/components/alert_card';
-import baseData from '@/utils';
+
+const baseData = namespace('baseData');
 
 @Component({
   components: { AlertCard },
 })
 export default class ComponentsList extends Vue {
+  @baseData.Getter private getBaseData!: any[];
+
+  private get componentBaseData() {
+    return this.getBaseData;
+  }
+
   private selectDefaultValue: string = 'baseComponent';
 
   private componentListLoopBody: any[] = [];
@@ -24,7 +32,7 @@ export default class ComponentsList extends Vue {
   private changeSelect(value: string) {
     switch (value) {
       case 'baseComponent':
-        this.componentListLoopBody = baseData.compData;
+        this.componentListLoopBody = this.componentBaseData;
         break;
       default:
         this.componentListLoopBody = [];

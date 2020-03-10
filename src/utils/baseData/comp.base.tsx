@@ -10,7 +10,15 @@ const componentData: component[] = [
   {
     name: '卡片',
     type: 'component',
-    css: {},
+    css: {
+      Background: {
+        background: '#fff',
+      },
+      layoutStyle: {
+        width: 180,
+        height: 220,
+      },
+    },
     component: 'card',
     permissions: {},
     prop: {},
@@ -30,7 +38,7 @@ const componentData: component[] = [
     component: 'layout',
     css: {
       layoutStyle: {
-        height: 100,
+        height: 500,
         width: '',
       },
     },

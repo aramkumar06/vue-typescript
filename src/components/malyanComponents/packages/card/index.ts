@@ -6,12 +6,12 @@
  * @LastEditors  : bhabgs
  * @LastEditTime : 2020-02-14 10:21:45
  */
-import card from './main';
+import Card from './main';
 
 const com = {
   version: '0.0.1',
   name: 'card',
-  install: card,
+  install: Card,
 };
 
 export default com;
