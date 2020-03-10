@@ -4,7 +4,7 @@
  * @Author: bhabgs
  * @Date: 2020-02-14 09:38:59
  * @LastEditors: bhabgs
- * @LastEditTime: 2020-03-10 11:05:29
+ * @LastEditTime: 2020-03-10 11:09:51
  */
 interface style {} // 选择 typecss
 
@@ -35,7 +35,7 @@ export interface component {
   children?: component[];
 }
 
-interface editData {
+export interface editData {
   _name: string; // 用户手动填写
   key: string; // 通过生成器生成
   type: string | object | [] | boolean | number; // 类型记录该值类型 string number object array boolean
