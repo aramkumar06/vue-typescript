@@ -18,6 +18,8 @@
     "ant-design-vue": "^1.4.10",
     "core-js": "^3.4.4",
     "http-server": "^0.12.1",
+    "lz-string": "^1.4.4",
+    "typestyle": "^2.0.4",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-drag-zone": "^2.0.0-rc1",

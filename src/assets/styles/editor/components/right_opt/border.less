@@ -1,0 +1,57 @@
+#border_comp {
+  .ant-input-number {
+    margin-left: 8px;
+    width: 50px;
+  }
+  .ant-row {
+    > div {
+      margin-top: 0.5rem;
+    }
+  }
+  .custom_border {
+    .ant-input-number {
+      height: 22px;
+      .ant-input-number-input {
+        height: 22px;
+        line-height: 20px;
+      }
+    }
+  }
+  .sudoku {
+    display: flex;
+    .opt {
+      flex: 1;
+      padding-left: 1rem;
+      .ant-input-number {
+        margin: 0;
+        margin-top: 0.5rem;
+        width: 100%;
+        input {
+          text-align: left;
+        }
+      }
+    }
+    .sudoku_box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      height: 80px;
+      width: 80px;
+      > div {
+        cursor: pointer;
+        text-align: center;
+        color: @grey4;
+        transition: color 0.3s;
+
+        &.active,
+        &:hover {
+          color: @grey10;
+        }
+      }
+    }
+  }
+
+  .border_style {
+    display: flex;
+  }
+}

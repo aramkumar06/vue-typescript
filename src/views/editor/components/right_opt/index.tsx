@@ -1,10 +1,17 @@
 import { Vue, Component, Watch } from 'vue-property-decorator';
-import { Getter, namespace } from 'vuex-class';
+import { namespace } from 'vuex-class';
 import { EDITMODEL } from '@/store/types';
+import StylePlate from './style_plate';
+import SourceData from './data_source';
 
 const editOpt = namespace('editOpt');
 
-@Component
+@Component({
+  components: {
+    StylePlate,
+    SourceData,
+  },
+})
 export default class rightOpt extends Vue {
   @editOpt.Getter private EDITMODEL?: EDITMODEL;
 
@@ -15,25 +22,28 @@ export default class rightOpt extends Vue {
   private tabs: any[] = [
     {
       title: '样式',
+      comp: 'StylePlate',
     },
     {
       title: '属性',
+      comp: '',
     },
     {
       title: '事件',
     },
     {
       title: '数据',
+      comp: 'SourceData',
     },
   ];
 
   get renderTabs(): JSX.Element {
     return (
-      <a-tabs type='card'>
+      <a-tabs type='card' defaultActiveKey={3}>
         {this.tabs.map((item, key) => {
           return (
             <a-tab-pane tab={item.title} key={key}>
-              {item.title}
+              <item.comp />
             </a-tab-pane>
           );
         })}

@@ -1,0 +1,61 @@
+<!--
+ * @abstract: JianJie
+ * @version: 0.0.1
+ * @Author: bhabgs
+ * @Date: 2020-03-02 10:22:46
+ * @LastEditors: bhabgs
+ * @LastEditTime: 2020-03-09 14:38:44
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      const li = {
+        children: [
+          {
+            name: 0,
+            children: [
+              {
+                name: '1-1',
+                children: [
+                  {
+                    name: '1-1-1',
+                    children: [],
+                  },
+                ],
+              },
+              {
+                name: '2-1',
+                children: [
+                  {
+                    name: '2-1-1',
+                  },
+                  {
+                    name: '2-1-2',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const num = [0, 1, 1];
+
+      function a() {
+        let d = li.children;
+        for (let i in num) {
+          d = d[num[i]].children || d[num[i]];
+        }
+        // console.log(d.splice(1, 1));
+
+        return d;
+      }
+      a();
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,45 +1,38 @@
 import { Vue, Component } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import AlertCard from '@/views/editor/components/alert_card';
-import layoutData from '@/utils/baseData/layoutData';
-import componentData from '@/utils/baseData/componentData';
+
+const baseData = namespace('baseData');
 
 @Component({
   components: { AlertCard },
 })
 export default class ComponentsList extends Vue {
-  private selectDefaultValue: string = 'layout';
+  @baseData.Getter private getBaseData!: any[];
+
+  private get componentBaseData() {
+    return this.getBaseData;
+  }
+
+  private selectDefaultValue: string = 'baseComponent';
 
   private componentListLoopBody: any[] = [];
 
   private componentType: any[] = [
     {
-      code: 'layout',
-      title: '布局组件',
-    },
-    {
       code: 'baseComponent',
       title: '基础组件',
     },
-    /*   {
-      code: 'components',
-      title: '组件群',
-    }, */
   ];
 
   private mounted() {
-    this.changeSelect('layout');
+    this.changeSelect('baseComponent');
   }
 
   private changeSelect(value: string) {
     switch (value) {
-      case 'layout':
-        this.componentListLoopBody = layoutData;
-        break;
       case 'baseComponent':
-        this.componentListLoopBody = componentData;
-        break;
-      case 'components':
-        this.componentListLoopBody = [];
+        this.componentListLoopBody = this.componentBaseData;
         break;
       default:
         this.componentListLoopBody = [];

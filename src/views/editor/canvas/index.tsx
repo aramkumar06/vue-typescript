@@ -1,110 +1,89 @@
-import { Vue, Component, Watch } from 'vue-property-decorator';
-import { namespace, Getter, Mutation } from 'vuex-class';
+import { Vue, Component } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+import filRedSty, { cloneStyle } from '@/utils/filredsty';
 import { CANVAS_SETTING } from '@/store/modules/editOpt/type';
+import { page } from '@/store/pageType';
 
 const editOpt = namespace('editOpt');
+const pageData = namespace('pageData');
 
 @Component
 export default class EditCanvas extends Vue {
-  @editOpt.Getter private CANVAS_SETTING!: CANVAS_SETTING;
+  @editOpt.State((state) => state.CANVAS_SETTING)
+  private getCanvasSetting!: CANVAS_SETTING;
 
-  @editOpt.Getter private globalArgs!: string;
+  @editOpt.State((state) => state.globalArgs) private getGlobalArgs!: string;
 
-  @Getter private getPageContent!: any;
+  @pageData.State((state) => state.pageContent)
+  private getPageContentInfo!: page;
 
-  @Mutation private PAGE_CONTENT_ADD_LAYOUT: any;
+  @pageData.State((state) => state.activeKey)
+  private activeKey!: string;
 
-  get getGlobalArgs(): string {
-    return this.globalArgs;
-  }
+  @pageData.Mutation private ADD_TO_CHILDREN!: Function;
 
-  get getCanvasSetting(): CANVAS_SETTING {
-    return this.CANVAS_SETTING;
-  }
+  @pageData.Mutation private SET_ACTIVEKEY!: Function;
 
-  get getPageContentInfo(): any {
-    return this.getPageContent;
-  }
-
-  private dragEnterFn(e: Event, type: String) {
-    switch (type) {
-      case 'page':
-        break;
-      case 'layout':
-        break;
-      default:
-        break;
+  private layoutDronFn(obj: any) {
+    if (obj.parent.id === 'page' && obj.componentInfo.type !== 'layout') {
+      this.$message.error('请添加布局组件');
+      return;
     }
+    this.ADD_TO_CHILDREN({
+      component: obj.componentInfo,
+      parent: obj.parent,
+    });
   }
 
-  private dragOverFn(e: Event, type: String) {
-    e.preventDefault();
-    switch (type) {
-      case 'page':
-        break;
-      case 'layout':
-        e.stopPropagation();
-        break;
-      default:
-        break;
-    }
+  private setClass(id: any) {
+    return ['b_comp', this.activeKey === id ? 'comp_active' : ''];
   }
 
-  private dropFn(e: any, type: String) {
-    e.preventDefault();
-    const data = JSON.parse(e.dataTransfer.getData('componentInfo'));
-    switch (type) {
-      case 'page':
-        this.pageContentAddLayout(data);
-        break;
-      case 'layout':
-        e.stopPropagation();
-        this.layoutChildrenAddComponent(data);
-        break;
-      default:
-        break;
-    }
+  private setlayout(arr: any[]) {
+    return arr.map((item) => {
+      const css = filRedSty(item.css);
+      const text = item.css.font ? item.css.font.value : '';
+      return (
+        <item.component
+          ondropfn={this.layoutDronFn}
+          layout={item}
+          style={css}
+          class={this.setClass(item.id)}
+          nativeOnClick={(e: Event) => {
+            e.stopPropagation();
+            this.setActiveKey(item.id);
+          }}
+        >
+          {item.children && item.children.length > 0
+            ? this.setlayout(item.children)
+            : text}
+        </item.component>
+      );
+    });
   }
 
-  private pageContentAddLayout(obj: any) {
-    this.PAGE_CONTENT_ADD_LAYOUT(obj);
+  private setActiveKey(id: any) {
+    this.SET_ACTIVEKEY(id);
   }
-
-  private layoutChildrenAddComponent(obj: any) {}
 
   private render() {
+    const {
+      getPageContentInfo,
+      getCanvasSetting,
+      getGlobalArgs,
+      setActiveKey,
+      activeKey,
+    } = this;
     return (
-      <div
+      <layout
         id='edit_canvas'
-        ondragenter={(e: Event) => {
-          this.dragEnterFn(e, 'page');
-        }}
-        ondragover={(e: Event) => {
-          this.dragOverFn(e, 'page');
-        }}
-        ondrop={(e: Event) => {
-          this.dropFn(e, 'page');
-        }}
+        ondropfn={this.layoutDronFn}
+        layout={getPageContentInfo}
       >
-        setting：{JSON.stringify(this.getCanvasSetting)} <br />
-        getGlobalArgs： {`\n${this.getGlobalArgs}`}
-        {this.getPageContentInfo.children.map((item: any) => {
-          return (
-            <layout
-              class='layout'
-              ondragenter={(e: Event) => {
-                this.dragEnterFn(e, 'layout');
-              }}
-              ondragover={(e: Event) => {
-                this.dragOverFn(e, 'layout');
-              }}
-              ondrop={(e: Event) => {
-                this.dropFn(e, 'layout');
-              }}
-            />
-          );
-        })}
-      </div>
+        {/* setting：{JSON.stringify(getCanvasSetting)} <br />
+        getGlobalArgs： {`\n${getGlobalArgs}`} */}
+        {this.setlayout(getPageContentInfo.children)}
+      </layout>
     );
   }
 }
